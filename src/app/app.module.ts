@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -12,6 +15,8 @@ import { RegisterComponent } from './auth-forms/register/register.component';
 
 import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.component';
 import { BookmarkListComponent } from './bookmarks/bookmark-list/bookmark-list.component';
+
+import { BrowseComponent } from './browse/browse.component';
 
 import { OrgDetailComponent } from './browse/orgs/org-detail/org-detail.component';
 import { OrgListComponent } from './browse/orgs/org-list/org-list.component';
@@ -26,6 +31,9 @@ import { ReviewItemComponent } from './browse/repos/reviews/review-item/review-i
 
 import { SearchComponent } from './browse/search/search.component';
 
+import { AuthenticationService } from './services/authentication.service';
+import { GithubService } from './services/github.service';
+
 @NgModule({
    declarations: [
       AppComponent,
@@ -35,6 +43,7 @@ import { SearchComponent } from './browse/search/search.component';
       RegisterComponent,
       BookmarkItemComponent,
       BookmarkListComponent,
+      BrowseComponent,
       OrgDetailComponent,
       OrgListComponent,
       OrgItemComponent,
@@ -46,9 +55,23 @@ import { SearchComponent } from './browse/search/search.component';
       SearchComponent
    ],
    imports: [
-      BrowserModule
+      BrowserModule,
+      FormsModule,
+      ReactiveFormsModule,
+      HttpClientModule,
+      RouterModule.forRoot([
+         { path: '', component: WelcomeComponent, pathMatch: 'full'},
+         { path: '**', component: WelcomeComponent, pathMatch: 'full'},
+         { path: 'login', component: LoginComponent, pathMatch: 'full'},
+         { path: 'register', component: RegisterComponent, pathMatch: 'full'},
+         { path: 'browse', component: BrowseComponent, pathMatch: 'full'},
+         { path: 'popular', component: BrowseComponent, pathMatch: 'full'},
+         { path: 'bookmarks', component: BookmarkListComponent, pathMatch: 'full'},
+         { path: 'repos/:id', component: RepoDetailComponent, pathMatch: 'full'},
+         { path: 'orgs/:id', component: OrgDetailComponent, pathMatch: 'full'}
+      ])
    ],
-   providers: [],
+   providers: [AuthenticationService, GithubService],
    bootstrap: [
       AppComponent
    ]
