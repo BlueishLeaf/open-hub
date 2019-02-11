@@ -1,0 +1,14 @@
+@import "../../theme.scss";
+
+nav {
+    background-color: $foreground-color;
+}
+
+.navbar-brand {
+    color: $primary-color;
+    font-weight: bold;
+}
+
+.navbar .nav-item a {
+    color: $secondary-color;
+}

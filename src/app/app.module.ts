@@ -61,14 +61,14 @@ import { GithubService } from './services/github.service';
       HttpClientModule,
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
-         { path: '**', component: WelcomeComponent, pathMatch: 'full'},
          { path: 'login', component: LoginComponent, pathMatch: 'full'},
          { path: 'register', component: RegisterComponent, pathMatch: 'full'},
          { path: 'browse', component: BrowseComponent, pathMatch: 'full'},
          { path: 'popular', component: BrowseComponent, pathMatch: 'full'},
+         { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},
          { path: 'bookmarks', component: BookmarkListComponent, pathMatch: 'full'},
          { path: 'repos/:id', component: RepoDetailComponent, pathMatch: 'full'},
-         { path: 'orgs/:id', component: OrgDetailComponent, pathMatch: 'full'}
+         { path: 'orgs/:id', component: OrgDetailComponent, pathMatch: 'full'},
       ])
    ],
    providers: [AuthenticationService, GithubService],
