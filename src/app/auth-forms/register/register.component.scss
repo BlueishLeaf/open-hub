@@ -3,8 +3,33 @@
 .container {
     background-color: $background-color;
     width: 40%;
+    margin-top: 5%;
+}
+
+.container-fluid {
+    background-color: $background-color;
+}
+
+label, input {
+    color: $secondary-color;
 }
 
 #formWrapper {
-    margin: 30px;
+    padding: 50px;
+    border-radius: 30px;
+    background-color: $foreground-color;
+}
+
+button {
+    background-color: $primary-color;
+    border-radius: 30px;
+    height: 60px;
+    width: 200px;
+    font-size: 20px;
+    text-align: center;
+    margin: auto auto;
+}
+
+#buttonWrapper {
+    text-align: center;
 }

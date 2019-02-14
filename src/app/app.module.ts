@@ -31,7 +31,7 @@ import { ReviewItemComponent } from './browse/repos/reviews/review-item/review-i
 
 import { SearchComponent } from './browse/search/search.component';
 
-import { AuthenticationService } from './services/authentication.service';
+import { AwsService } from './services/aws.service';
 import { GithubService } from './services/github.service';
 
 @NgModule({
@@ -71,7 +71,7 @@ import { GithubService } from './services/github.service';
          { path: 'orgs/:id', component: OrgDetailComponent, pathMatch: 'full'},
       ])
    ],
-   providers: [AuthenticationService, GithubService],
+   providers: [AwsService, GithubService],
    bootstrap: [
       AppComponent
    ]

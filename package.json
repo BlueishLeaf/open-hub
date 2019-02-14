@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^7.2.4",
     "@angular/platform-browser-dynamic": "^7.2.4",
     "@angular/router": "^7.2.4",
+    "aws-sdk": "^2.401.0",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
     "rxjs": "~6.4.0",
