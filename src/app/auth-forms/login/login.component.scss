@@ -33,3 +33,27 @@ button {
 #buttonWrapper {
     text-align: center;
 }
+
+.error {
+    color: red;
+    font-size: 0.8em;
+}
+
+h3{
+    color: $secondary-color;
+    padding: 10px;
+    text-align: center;
+}
+
+.logo {
+    width: 64px;
+    height: 64px;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+#logos {
+    text-align: center;
+}

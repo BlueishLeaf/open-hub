@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 import { AppComponent } from './app.component';
 
@@ -31,8 +33,11 @@ import { ReviewItemComponent } from './browse/repos/reviews/review-item/review-i
 
 import { SearchComponent } from './browse/search/search.component';
 
-import { AwsService } from './services/aws.service';
+import { AuthService } from './services/auth.service';
 import { GithubService } from './services/github.service';
+import { environment } from 'src/environments/environment';
+import { FirestoreService } from './services/firestore.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @NgModule({
    declarations: [
@@ -59,6 +64,8 @@ import { GithubService } from './services/github.service';
       FormsModule,
       ReactiveFormsModule,
       HttpClientModule,
+      AngularFireModule.initializeApp(environment.firebase),
+      AngularFireDatabaseModule,
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
          { path: 'login', component: LoginComponent, pathMatch: 'full'},
@@ -71,7 +78,7 @@ import { GithubService } from './services/github.service';
          { path: 'orgs/:id', component: OrgDetailComponent, pathMatch: 'full'},
       ])
    ],
-   providers: [AwsService, GithubService],
+   providers: [AuthService, GithubService, FirestoreService, AngularFireAuth],
    bootstrap: [
       AppComponent
    ]
