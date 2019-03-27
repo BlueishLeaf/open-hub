@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class FirestoreService {
 
-constructor(private _afStore: AngularFirestore) { }
+  constructor(private _afStore: AngularFirestore) { }
 
   createUser(user: object) {
     this._afStore.collection('users').add(user);
