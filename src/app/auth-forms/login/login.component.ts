@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
       this._router.navigate(['browse']);
     }
     this.loginForm = this._fb.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
     this.loginForm.valueChanges.subscribe(data => {
