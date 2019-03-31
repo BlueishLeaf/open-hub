@@ -20,7 +20,6 @@ import { BookmarkListComponent } from './bookmarks/bookmark-list/bookmark-list.c
 
 import { BrowseComponent } from './browse/browse.component';
 
-import { OrgDetailComponent } from './browse/orgs/org-detail/org-detail.component';
 import { OrgListComponent } from './browse/orgs/org-list/org-list.component';
 import { OrgItemComponent } from './browse/orgs/org-item/org-item.component';
 
@@ -49,7 +48,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
       BookmarkItemComponent,
       BookmarkListComponent,
       BrowseComponent,
-      OrgDetailComponent,
       OrgListComponent,
       OrgItemComponent,
       RepoDetailComponent,
@@ -74,8 +72,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
          { path: 'popular', component: BrowseComponent, pathMatch: 'full'},
          { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},
          { path: 'bookmarks', component: BookmarkListComponent, pathMatch: 'full'},
-         { path: 'repos/:id', component: RepoDetailComponent, pathMatch: 'full'},
-         { path: 'orgs/:id', component: OrgDetailComponent, pathMatch: 'full'},
+         { path: 'repos/:id', component: RepoDetailComponent, pathMatch: 'full'}
       ])
    ],
    providers: [AuthService, GithubService, FirestoreService, AngularFireAuth],

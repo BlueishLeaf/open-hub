@@ -132,4 +132,24 @@ export class GithubService {
     });
   return of(repoDetail);
   }
+
+  // Fetch a list of repos to show on the browse component when there are no filters
+  getNewRepos(): Observable<IRepo[]> {
+    const repositories: IRepo[] = [];
+    const params = new HttpParams().set('q', 'is:public').set('per_page', '30');
+    this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).toPromise().then(res => {
+      res.items.forEach(repo => {
+        const newRepo: IRepo = {
+          id: repo.id,
+          name: repo.name,
+          owner: repo.owner.login,
+          description: repo.description,
+          watchers: repo.watchers_count,
+          stars: repo.stargazers_count
+        };
+        repositories.push(newRepo);
+      });
+    });
+    return of(repositories);
+  }
 }
