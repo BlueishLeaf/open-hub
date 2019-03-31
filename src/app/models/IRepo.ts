@@ -1,3 +1,8 @@
 export interface IRepo {
-    id: string;
+    id: number;
+    name: string;
+    owner: string;
+    description: string;
+    watchers: number;
+    stars: number;
 }
