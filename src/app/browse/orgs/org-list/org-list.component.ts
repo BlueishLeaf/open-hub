@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IOrg } from 'src/app/models/IOrg';
+import { GithubService } from 'src/app/services/github.service';
 
 @Component({
   selector: 'app-org-list',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./org-list.component.scss']
 })
 export class OrgListComponent implements OnInit {
+  organizations: IOrg[];
 
-  constructor() { }
+  constructor(private _repos: GithubService) { }
 
   ngOnInit() {
+    this._repos.getTopOrgs().subscribe(orgs => {
+      this.organizations = orgs;
+    });
   }
 
 }

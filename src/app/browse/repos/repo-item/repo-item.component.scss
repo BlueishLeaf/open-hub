@@ -21,3 +21,8 @@ img {
 #stats {
     text-align: center;
 }
+
+.card:hover {
+    background-color: $primary-color;
+    cursor: pointer;
+}

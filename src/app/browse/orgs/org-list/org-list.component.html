@@ -1,3 +1,5 @@
-<p>
-  org-list works!
-</p>
+<div class="container-fluid">
+  <div class="container" *ngFor="let org of organizations">
+    <app-org-item [organization]="org"></app-org-item>
+  </div>
+</div>

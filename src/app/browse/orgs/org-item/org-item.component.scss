@@ -1,0 +1,26 @@
+@import "../../../../theme.scss";
+
+img {
+    width:200px;
+    height:200px;
+    border-radius: 30px;
+}
+
+.card {
+    padding: 20px;
+    border-radius: 30px;
+    background-color: $secondary-color;
+}
+
+#card-body {
+    margin-left: 20px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.card:hover {
+    background-color: $primary-color;
+}

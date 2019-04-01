@@ -9,7 +9,7 @@ export interface IRepoDetail {
     watchers: number;
     stars: number;
     forks: number;
-    commits: ICommit[];
-    issues: IIssue[];
+    commits?: ICommit[];
+    issues?: IIssue[];
     reviews?: IReview[];
 }

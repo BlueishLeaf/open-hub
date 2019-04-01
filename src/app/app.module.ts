@@ -74,7 +74,7 @@ import { PopularComponent } from './popular/popular.component';
          { path: 'popular', component: PopularComponent, pathMatch: 'full'},
          { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},
          { path: 'bookmarks', component: BookmarkListComponent, pathMatch: 'full'},
-         { path: 'repos/:id', component: RepoDetailComponent, pathMatch: 'full'}
+         { path: 'repo/:id', component: RepoDetailComponent, pathMatch: 'full'}
       ])
    ],
    providers: [AuthService, GithubService, FirestoreService, AngularFireAuth],
