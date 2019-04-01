@@ -1,26 +1,42 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IReview } from '../models/IReview';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
+  reviewFuncEndpoint = 'https://europe-west1-open-hub-1550107968798.cloudfunctions.net/reviewFunc';
 
-  constructor(private _afStore: AngularFirestore) { }
+  constructor(private _http: HttpClient) { }
 
-  createUser(user: object) {
-    this._afStore.collection('users').add(user);
+  getReviewsForRepo(repo: string): Observable<IReview[]> {
+    const params = new HttpParams().set('repo', repo);
+    return this._http.get<IReview[]>(this.reviewFuncEndpoint, {params: params});
   }
 
-  getUser(id: string) {
-    return this._afStore.doc('users/' + id).get();
+  addReview(review: IReview) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+    return this._http.post<IReview>(this.reviewFuncEndpoint, review, httpOptions);
   }
 
-  deleteUser(id: string) {
-    this._afStore.doc('users/' + id).delete();
+  getReview(id: string): Observable<IReview> {
+    const params = new HttpParams().set('id', id);
+    return this._http.get<IReview>(this.reviewFuncEndpoint, {params: params});
   }
 
-  updateUser(id: string, user: object) {
-    this._afStore.doc('users/' + id).update(user);
+  deleteReview(id: string) {
+    const params = new HttpParams().set('id', id);
+    return this._http.delete(this.reviewFuncEndpoint, {params: params});
+  }
+
+  editReview(id: string, newReview: IReview) {
+    const params = new HttpParams().set('id', id);
+    return this._http.put<IReview>(this.reviewFuncEndpoint, newReview, {params: params});
   }
 }

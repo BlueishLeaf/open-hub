@@ -1,7 +1,8 @@
 import { IUser } from './IUser';
 
 export interface IReview {
-    author: IUser;
+    author: string;
     content: string;
-    rating: number;
+    timestamp: Date;
+    repository: string;
 }

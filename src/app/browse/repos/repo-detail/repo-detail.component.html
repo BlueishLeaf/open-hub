@@ -70,13 +70,19 @@
       </div>
     </div>
     <div class="container" *ngIf="display==='reviews'">
+      <div class="card-body">
+        <textarea class="form-control" [(ngModel)]="currentReview" #fcontrol="ngModel" required></textarea>
+        <button class="btn-primary" (click)="addReview()" [disabled]="!fcontrol.valid">Post</button>
+        <p class="text-muted">This field supports <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
+          target="_blank">Markdown</a></p>
+      </div>
       <div id="review" class="container" *ngFor="let review of repository.reviews">
         <div class="card">
           <div class="card-header">Review</div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p>{{review.content}}</p>
-              <footer class="blockquote-footer">Reviewed by <cite title="author">{{review.author.fName}}</cite></footer>
+              <footer class="blockquote-footer">Reviewed by <cite title="author">{{review.author}}</cite></footer>
             </blockquote>
           </div>
         </div>

@@ -75,4 +75,8 @@ constructor(public afAuth: AngularFireAuth) {
       return false;
     }
   }
+
+  getCurrentUser() {
+    return this.user;
+  }
 }

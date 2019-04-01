@@ -4,6 +4,9 @@ import { IRepoDetail } from 'src/app/models/IRepoDetail';
 import { GithubService } from 'src/app/services/github.service';
 import { ICommit } from 'src/app/models/ICommit';
 import { IIssue } from 'src/app/models/IIssue';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { IReview } from 'src/app/models/IReview';
 
 @Component({
   selector: 'app-repo-detail',
@@ -15,8 +18,9 @@ export class RepoDetailComponent implements OnInit {
   display: string;
   commitLink: string;
   issueLink: string;
+  currentReview = '';
 
-  constructor(private _route: ActivatedRoute, private _repos: GithubService) { }
+  constructor(private _route: ActivatedRoute, private _repos: GithubService, private _db: FirestoreService, private _auth: AuthService) { }
 
   ngOnInit() {
     const id = this._route.snapshot.paramMap.get('id');
@@ -41,18 +45,43 @@ export class RepoDetailComponent implements OnInit {
           title: issue.title
         });
       });
-      this.repository = {
-        name: data[0].name,
-        owner: data[0].owner.login,
-        description: data[0].description,
-        watchers: data[0].watchers_count,
-        stars: data[0].stargazers_count,
-        forks: data[0].forks_count,
-        commits: commits,
-        issues: issues
-      };
+      this._db.getReviewsForRepo(data[0].name).subscribe(reviews => {
+        this.repository = {
+          name: data[0].name,
+          owner: data[0].owner.login,
+          description: data[0].description,
+          watchers: data[0].watchers_count,
+          stars: data[0].stargazers_count,
+          forks: data[0].forks_count,
+          commits: commits,
+          issues: issues,
+          reviews: reviews
+        };
+      });
     });
     this.display = 'commits';
+  }
+
+  addReview() {
+    this._auth.getCurrentUser().subscribe(user => {
+      const newReview: IReview = {
+        content: this.currentReview,
+        author: user.email,
+        timestamp: new Date(),
+        repository: this.repository.name
+      };
+      this._db.addReview(newReview).subscribe(() => {
+        this.repository.reviews.push(newReview);
+      });
+    });
+  }
+
+  editReview() {
+
+  }
+
+  removeReview() {
+
   }
 
 }
