@@ -1,0 +1,17 @@
+<div class="container-fluid">
+  <div class="container">
+    <div id="buttons" class="row">
+      <div class="container">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons" role="group" aria-label="Time frame">
+              <button type="button" class="btn btn-secondary" (click)="getPopular('day')" checked>Today</button>
+              <button type="button" class="btn btn-secondary" (click)="getPopular('week')">This Week</button>
+              <button type="button" class="btn btn-secondary" (click)="getPopular('month')">This Month</button>
+            </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <app-repo-list [repositories]="repositories"></app-repo-list>
+    </div>
+  </div>
+</div>

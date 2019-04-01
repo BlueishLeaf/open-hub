@@ -37,6 +37,7 @@ import { GithubService } from './services/github.service';
 import { environment } from 'src/environments/environment';
 import { FirestoreService } from './services/firestore.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { PopularComponent } from './popular/popular.component';
 
 @NgModule({
    declarations: [
@@ -55,7 +56,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
       RepoItemComponent,
       ReviewListComponent,
       ReviewItemComponent,
-      SearchComponent
+      SearchComponent,
+      PopularComponent
    ],
    imports: [
       BrowserModule,
@@ -69,7 +71,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
          { path: 'login', component: LoginComponent, pathMatch: 'full'},
          { path: 'register', component: RegisterComponent, pathMatch: 'full'},
          { path: 'browse', component: BrowseComponent, pathMatch: 'full'},
-         { path: 'popular', component: BrowseComponent, pathMatch: 'full'},
+         { path: 'popular', component: PopularComponent, pathMatch: 'full'},
          { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},
          { path: 'bookmarks', component: BookmarkListComponent, pathMatch: 'full'},
          { path: 'repos/:id', component: RepoDetailComponent, pathMatch: 'full'}

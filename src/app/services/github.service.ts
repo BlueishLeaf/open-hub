@@ -46,7 +46,7 @@ export class GithubService {
 
   // Retrieve the top repos created since a given date ordered by their star count
   getPopularRepos(createdOn: Date): Observable<IRepo[]> {
-    const formattedDate = formatDate(createdOn, 'YYYY-MM-DD', 'en-EU');
+    const formattedDate = formatDate(createdOn.toISOString(), 'yyyy-MM-dd', 'en-US');
     const repositories: IRepo[] = [];
     const params = new HttpParams().set('q', `created:>=${formattedDate}`).set('sort', 'stars').set('order', 'desc').set('per_page', '8');
     this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).toPromise().then(res => {
@@ -74,7 +74,7 @@ export class GithubService {
     if (!isNullOrUndefined(searchParams.language)) { query += `language:${searchParams.language} `; }
     if (!isNullOrUndefined(searchParams.starThreshold)) { query += `stars:>=${searchParams.starThreshold} `; }
     if (!isNullOrUndefined(searchParams.watcherThreshold)) { query += `watchers:>=${searchParams.watcherThreshold} `; }
-    if (!isNullOrUndefined(searchParams.firstIssueThreshold)) { query += `good-first-issues:>=${searchParams.firstIssueThreshold} `; }
+    if (!isNullOrUndefined(searchParams.issueThreshold)) { query += `good-first-issues:>=${searchParams.firstIssueThreshold} `; }
     if (!isNullOrUndefined(searchParams.license)) { query += `license:${searchParams.license} `; }
     const params = new HttpParams().set('q', `${query}`).set('per_page', '30');
     this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).toPromise().then(res => {
@@ -136,7 +136,7 @@ export class GithubService {
   // Fetch a list of repos to show on the browse component when there are no filters
   getNewRepos(): Observable<IRepo[]> {
     const repositories: IRepo[] = [];
-    const params = new HttpParams().set('q', 'is:public').set('per_page', '30');
+    const params = new HttpParams().set('q', 'is:public').set('per_page', '28');
     this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).toPromise().then(res => {
       res.items.forEach(repo => {
         const newRepo: IRepo = {

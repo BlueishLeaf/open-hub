@@ -1,0 +1,33 @@
+@import "../../../theme.scss";
+
+.container {
+    background-color: $foreground-color;
+    border-radius: 30px;
+}
+
+label {
+    color: $secondary-color;
+}
+
+span {
+    color: $secondary-color;
+}
+
+h3 {
+    color: $primary-color;
+    text-align: center;
+}
+
+button {
+    background-color: $primary-color;
+    border-radius: 30px;
+    height: 60px;
+    width: 200px;
+    font-size: 20px;
+    text-align: center;
+    margin: auto auto;
+}
+
+#buttonWrapper {
+    text-align: center;
+}

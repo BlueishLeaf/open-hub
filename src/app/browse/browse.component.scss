@@ -1,3 +1,14 @@
-.container {
+@import "../../theme.scss";
+
+.container-fluid {
     margin-top: 5%;
+    background-color: $background-color;
+}
+
+.container-fluid {
+    background-color: $background-color;
+}
+
+#search {
+    position: relative;
 }

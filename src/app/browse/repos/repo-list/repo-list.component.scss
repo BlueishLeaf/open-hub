@@ -1,0 +1,11 @@
+@import "../../../../theme.scss";
+
+div {
+    background-color: $background-color;
+}
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 20px;
+}

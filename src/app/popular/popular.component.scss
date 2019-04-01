@@ -1,0 +1,23 @@
+@import "../../theme.scss";
+
+.container-fluid {
+    background-color: $background-color;
+    margin-top: 5%;
+}
+
+.container {
+    text-align: center;
+}
+
+#buttons.row {
+    margin-bottom: 5%;
+}
+
+.btn-group {
+    border-radius: 30px;
+}
+
+button {
+    color: $primary-color;
+    background-color: $foreground-color;
+}
