@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
 
@@ -66,6 +67,7 @@ import { PopularComponent } from './popular/popular.component';
       HttpClientModule,
       AngularFireModule.initializeApp(environment.firebase),
       AngularFireDatabaseModule,
+      MarkdownModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
          { path: 'login', component: LoginComponent, pathMatch: 'full'},

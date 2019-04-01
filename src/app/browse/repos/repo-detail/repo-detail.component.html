@@ -4,13 +4,83 @@
       <div class="container">
         <h1>{{repository.name}}</h1>
         <p>{{repository.description}}</p>
+        <div id="stats" class="row">
+          <div class="col">
+            <img src="../../../../assets/icons/commit.png">
+            <div>{{repository.commits.length}}</div>
+          </div>
+          <div class="col">
+            <img src="../../../../assets/icons/issue.png">
+            <div>{{repository.issues.length}}</div>
+          </div>
+          <div class="col">
+            <img src="../../../../assets/icons/fork.png">
+            <div>{{repository.forks}}</div>
+          </div>
+          <div class="col">
+            <img src="../../../../assets/icons/star.png">
+            <div>{{repository.stars}}</div>
+          </div>
+          <div class="col">
+            <img src="../../../../assets/icons/watcher.png">
+            <div>{{repository.watchers}}</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-
+  </div>
+  <div id="buttons" class="row">
+    <div class="container">
+      <div class="btn-group btn-group-toggle" data-toggle="buttons" role="group" aria-label="list">
+        <button type="button" class="btn btn-secondary" (click)="display='commits'">Commits</button>
+        <button type="button" class="btn btn-secondary" (click)="display='issues'">Issues</button>
+        <button type="button" class="btn btn-secondary" (click)="display='reviews'">Reviews</button>
+      </div>
     </div>
-    <div class="row">
-
+  </div>
+  <div class="row">
+    <div class="container" *ngIf="display==='commits' && repository">
+      <div id="commit" class="container" *ngFor="let commit of repository.commits">
+        <a [href]="'https://github.com/' + repository.owner + '/' + repository.name + '/commit/' + commit.sha" target="_blank">
+          <div class="card">
+            <div class="card-header">Commit</div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <markdown>{{commit.message}}</markdown>
+                <footer class="blockquote-footer">Committed by <cite title="author">{{commit.author}}</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="container" *ngIf="display==='issues' && repository">
+      <div id="issue" class="container" *ngFor="let issue of repository.issues">
+        <a [href]="issueLink" target="_blank">
+          <div class="card">
+            <div class="card-header">Issue</div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <markdown>{{issue.description}}</markdown>
+                <footer class="blockquote-footer">Issue opened by <cite title="author">{{issue.author}}</cite></footer>
+              </blockquote>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="container" *ngIf="display==='reviews'">
+      <div id="review" class="container" *ngFor="let review of repository.reviews">
+        <div class="card">
+          <div class="card-header">Review</div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{review.content}}</p>
+              <footer class="blockquote-footer">Reviewed by <cite title="author">{{review.author.fName}}</cite></footer>
+            </blockquote>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,75 @@
+@import "../../../../theme.scss";
+
 #repo {
     margin-top: 5%;
-    background-color: aliceblue;
+    background-color: $secondary-color;
+    border-radius: 30px;
+    text-align: center;
+    padding:20px;
+}
+
+.container-fluid {
+    background-color: $background-color;
+}
+
+#buttons {
+    text-align: center;
+    margin:20px;
+}
+
+.btn-group {
+    border-radius: 30px;
+}
+
+button {
+    color: $primary-color;
+    background-color: $foreground-color;
+}
+
+img {
+    width:50px;
+    height:50px;
+}
+
+.col {
+    text-align: center;
+}
+
+#commit {
+    background-color: $background-color;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
+#issue {
+    background-color: $background-color;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
+#review {
+    background-color: $background-color;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
+.card {
+    background-color: $secondary-color;
+    border-radius: 30px;
+}
+
+.card:hover {
+    background-color: $primary-color;
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
 }

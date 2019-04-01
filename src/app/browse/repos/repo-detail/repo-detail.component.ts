@@ -12,6 +12,9 @@ import { IIssue } from 'src/app/models/IIssue';
 })
 export class RepoDetailComponent implements OnInit {
   repository: IRepoDetail;
+  display: string;
+  commitLink: string;
+  issueLink: string;
 
   constructor(private _route: ActivatedRoute, private _repos: GithubService) { }
 
@@ -24,7 +27,8 @@ export class RepoDetailComponent implements OnInit {
         commits.push({
           author: commit.commit.author.name,
           message: commit.commit.message,
-          comments: commit.commit.comment_count
+          comments: commit.commit.comment_count,
+          sha: commit.sha
         });
       });
       const issues: IIssue[] = [];
@@ -48,6 +52,7 @@ export class RepoDetailComponent implements OnInit {
         issues: issues
       };
     });
+    this.display = 'commits';
   }
 
 }

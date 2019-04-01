@@ -2,6 +2,6 @@ import { IUser } from './IUser';
 
 export interface IReview {
     author: IUser;
-    review: string;
+    content: string;
     rating: number;
 }
