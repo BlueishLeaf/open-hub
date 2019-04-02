@@ -72,6 +72,7 @@ export class RepoDetailComponent implements OnInit {
       };
       this._db.addReview(newReview).subscribe(() => {
         this.repository.reviews.push(newReview);
+        this.currentReview = '';
       });
     });
   }

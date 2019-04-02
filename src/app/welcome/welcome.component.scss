@@ -45,11 +45,14 @@ h3 {
 }
 
 button {
-    background-color: $primary-color;
-    border-radius: 30px;
-    height: 60px;
-    width: 200px;
-    font-size: 20px;
+    color: $primary-color;
+    background-color: $foreground-color;
+    width: 10em;
     text-align: center;
     margin: auto auto;
+}
+
+button:hover {
+    background-color: $primary-color;
+    color: $foreground-color;
 }
