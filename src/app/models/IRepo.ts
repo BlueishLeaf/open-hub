@@ -1,5 +1,5 @@
 export interface IRepo {
-    id: number;
+    id?: number;
     name: string;
     owner: string;
     description: string;

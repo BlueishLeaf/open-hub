@@ -1,29 +1,31 @@
-<div class="container-fluid" *ngIf="repository!==undefined">
+<div class="container-fluid" *ngIf="repoDetails!==undefined">
   <div id="repo" class="container">
     <div class="row">
       <div class="container">
-        <h1>{{repository.name}}</h1>
-        <p>{{repository.description}}</p>
+        <h1>{{repoDetails.name}}</h1>
+        <button class="btn btn-secondary" *ngIf="!isBookmarked" (click)="addToBookmarks()">Bookmark</button>
+        <button class="btn btn-secondary" *ngIf="isBookmarked" (click)="removeFromBookmarks()">Remove Bookmark</button>
+        <p>{{repoDetails.description}}</p>
         <div id="stats" class="row">
           <div class="col">
             <img src="../../../../assets/icons/commit.png">
-            <div>{{repository.commits.length}}</div>
+            <div>{{repoDetails.commits.length}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/issue.png">
-            <div>{{repository.issues.length}}</div>
+            <div>{{repoDetails.issues.length}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/fork.png">
-            <div>{{repository.forks}}</div>
+            <div>{{repoDetails.forks}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/star.png">
-            <div>{{repository.stars}}</div>
+            <div>{{repoDetails.stars}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/watcher.png">
-            <div>{{repository.watchers}}</div>
+            <div>{{repoDetails.watchers}}</div>
           </div>
         </div>
       </div>
@@ -34,14 +36,14 @@
       <div class="btn-group btn-group-lg btn-group-toggle" data-toggle="buttons" role="group" aria-label="list">
         <button type="button" class="btn btn-secondary" (click)="display='commits'">Commits</button>
         <button type="button" class="btn btn-secondary" (click)="display='issues'">Issues</button>
-        <button type="button" class="btn btn-secondary" (click)="display='reviews'">Reviews</button>
+        <button type="button" class="btn btn-secondary" (click)="display='notes'">Notes</button>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="container" *ngIf="display==='commits' && repository">
-      <div id="commit" class="container" *ngFor="let commit of repository.commits">
-        <a [href]="'https://github.com/' + repository.owner + '/' + repository.name + '/commit/' + commit.sha" target="_blank">
+    <div class="container" *ngIf="display==='commits' && repoDetails">
+      <div id="commit" class="container" *ngFor="let commit of repoDetails.commits">
+        <a [href]="'https://github.com/' + repoDetails.owner + '/' + repoDetails.name + '/commit/' + commit.sha" target="_blank">
           <div class="card">
             <div class="card-header">Commit</div>
             <div class="card-body">
@@ -54,8 +56,8 @@
         </a>
       </div>
     </div>
-    <div class="container" *ngIf="display==='issues' && repository">
-      <div id="issue" class="container" *ngFor="let issue of repository.issues">
+    <div class="container" *ngIf="display==='issues' && repoDetails">
+      <div id="issue" class="container" *ngFor="let issue of repoDetails.issues">
         <a [href]="issueLink" target="_blank">
           <div class="card">
             <div class="card-header">Issue</div>
@@ -69,21 +71,21 @@
         </a>
       </div>
     </div>
-    <div class="container" *ngIf="display==='reviews'">
-      <div id="editCard" class="card-body">
+    <div class="container" *ngIf="display==='notes'">
+      <div id="editCard" *ngIf="checkLogin()" class="card-body">
         <h3>Leave a note for others to see!</h3>
-        <textarea class="form-control" [(ngModel)]="currentReview" #fcontrol="ngModel" required></textarea>
+        <textarea class="form-control" [(ngModel)]="currentNote" #fcontrol="ngModel" required></textarea>
         <p class="text-muted">This field supports <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
           target="_blank">Markdown</a></p>
-        <button id="postBtn" class="btn btn-secondary btn-lg" (click)="addReview()" [disabled]="!fcontrol.valid">Post</button>
+        <button id="postBtn" class="btn btn-secondary btn-lg" (click)="addNote()" [disabled]="!fcontrol.valid">Post</button>
       </div>
-      <div id="review" class="container" *ngFor="let review of repository.reviews">
+      <div id="note" class="container" *ngFor="let note of repoDetails.notes">
         <div class="card">
-          <div class="card-header">Review</div>
+          <div class="card-header">Note<img (click)="removeNote(note)" id="deleteIcon" src="../../../../assets/icons/garbage.png"/></div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
-              <p>{{review.content}}</p>
-              <footer class="blockquote-footer">Reviewed by <cite title="author">{{review.author}}</cite></footer>
+              <p>{{note.content}}</p>
+              <footer class="blockquote-footer">Note left by <cite title="author">{{note.authorEmail}}</cite></footer>
             </blockquote>
           </div>
         </div>

@@ -70,7 +70,7 @@ textarea {
     border-radius: 30px;
 }
 
-#review {
+#note {
     background-color: $background-color;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -93,4 +93,9 @@ a {
 
 a:hover {
     text-decoration: none;
+}
+
+#deleteIcon {
+    width: 30px;
+    height: 30px;
 }

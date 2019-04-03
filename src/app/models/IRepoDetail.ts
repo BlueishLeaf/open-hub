@@ -1,8 +1,9 @@
 import { ICommit } from './ICommit';
 import { IIssue } from './IIssue';
-import { IReview } from './IReview';
+import { INote } from './INote';
 
 export interface IRepoDetail {
+    id: number;
     name: string;
     owner: string;
     description: string;
@@ -11,5 +12,5 @@ export interface IRepoDetail {
     forks: number;
     commits?: ICommit[];
     issues?: IIssue[];
-    reviews?: IReview[];
+    notes?: INote[];
 }

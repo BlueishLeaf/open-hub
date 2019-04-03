@@ -16,9 +16,6 @@ import { NavComponent } from './nav/nav.component';
 import { LoginComponent } from './auth-forms/login/login.component';
 import { RegisterComponent } from './auth-forms/register/register.component';
 
-import { BookmarkItemComponent } from './bookmarks/bookmark-item/bookmark-item.component';
-import { BookmarkListComponent } from './bookmarks/bookmark-list/bookmark-list.component';
-
 import { BrowseComponent } from './browse/browse.component';
 
 import { OrgListComponent } from './browse/orgs/org-list/org-list.component';
@@ -39,6 +36,7 @@ import { environment } from 'src/environments/environment';
 import { FirestoreService } from './services/firestore.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PopularComponent } from './popular/popular.component';
+import { BookmarksComponent } from './bookmarks/bookmarks.component';
 
 @NgModule({
    declarations: [
@@ -47,8 +45,6 @@ import { PopularComponent } from './popular/popular.component';
       NavComponent,
       LoginComponent,
       RegisterComponent,
-      BookmarkItemComponent,
-      BookmarkListComponent,
       BrowseComponent,
       OrgListComponent,
       OrgItemComponent,
@@ -58,7 +54,8 @@ import { PopularComponent } from './popular/popular.component';
       ReviewListComponent,
       ReviewItemComponent,
       SearchComponent,
-      PopularComponent
+      PopularComponent,
+      BookmarksComponent
    ],
    imports: [
       BrowserModule,
@@ -75,7 +72,7 @@ import { PopularComponent } from './popular/popular.component';
          { path: 'browse', component: BrowseComponent, pathMatch: 'full'},
          { path: 'popular', component: PopularComponent, pathMatch: 'full'},
          { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},
-         { path: 'bookmarks', component: BookmarkListComponent, pathMatch: 'full'},
+         { path: 'bookmarks', component: BookmarksComponent, pathMatch: 'full'},
          { path: 'repo/:id', component: RepoDetailComponent, pathMatch: 'full'}
       ])
    ],
