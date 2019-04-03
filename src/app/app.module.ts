@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
@@ -24,9 +23,6 @@ import { OrgItemComponent } from './browse/orgs/org-item/org-item.component';
 import { RepoDetailComponent } from './browse/repos/repo-detail/repo-detail.component';
 import { RepoListComponent } from './browse/repos/repo-list/repo-list.component';
 import { RepoItemComponent } from './browse/repos/repo-item/repo-item.component';
-
-import { ReviewListComponent } from './browse/repos/reviews/review-list/review-list.component';
-import { ReviewItemComponent } from './browse/repos/reviews/review-item/review-item.component';
 
 import { SearchComponent } from './browse/search/search.component';
 
@@ -51,8 +47,6 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
       RepoDetailComponent,
       RepoListComponent,
       RepoItemComponent,
-      ReviewListComponent,
-      ReviewItemComponent,
       SearchComponent,
       PopularComponent,
       BookmarksComponent
@@ -63,7 +57,6 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
       ReactiveFormsModule,
       HttpClientModule,
       AngularFireModule.initializeApp(environment.firebase),
-      AngularFireDatabaseModule,
       MarkdownModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
