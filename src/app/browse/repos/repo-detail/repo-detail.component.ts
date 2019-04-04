@@ -8,6 +8,7 @@ import { FirestoreService } from 'src/app/services/firestore.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { INote } from 'src/app/models/INote';
 import { IRepo } from 'src/app/models/IRepo';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-repo-detail',
@@ -70,12 +71,14 @@ export class RepoDetailComponent implements OnInit {
           watchers: this.repoDetails.watchers,
           description: this.repoDetails.description
         };
-        this._db.getUser(this._auth.getCurrentUser().uid).subscribe(user => {
-          if (user.bookmarks.some(b => b.id === this.repository.id)) {
-            this.isBookmarked = true;
-          }
-          this.isModerator = user.role === 'moderator' ? true : false;
-        });
+        if (!isNullOrUndefined(this._auth.getCurrentUser())) {
+          this._db.getUser(this._auth.getCurrentUser().uid).subscribe(user => {
+            if (user.bookmarks.some(b => b.id === this.repository.id)) {
+              this.isBookmarked = true;
+            }
+            this.isModerator = user.role === 'moderator' ? true : false;
+          });
+        }
       });
     });
     this.display = 'commits';

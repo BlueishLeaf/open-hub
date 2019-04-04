@@ -81,10 +81,10 @@
       </div>
       <div id="note" class="container" *ngFor="let note of repoDetails.notes">
         <div class="card">
-          <div class="card-header">Note<img *ngIf="canDelete(note)" (click)="removeNote(note)" id="deleteIcon" src="../../../../assets/icons/garbage.png"/></div>
+          <div class="card-header">Note<img *ngIf="checkLogin() && canDelete(note)" (click)="removeNote(note)" id="deleteIcon" src="../../../../assets/icons/garbage.png"/></div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
-              <p>{{note.content}}</p>
+              <markdown>{{note.content}}</markdown>
               <footer class="blockquote-footer">Note left by <cite title="author">{{note.authorEmail}}</cite></footer>
             </blockquote>
           </div>
