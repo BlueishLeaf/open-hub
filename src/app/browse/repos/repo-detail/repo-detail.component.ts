@@ -22,6 +22,7 @@ export class RepoDetailComponent implements OnInit {
   issueLink: string;
   currentNote = '';
   isBookmarked = false;
+  isModerator = false;
 
   constructor(private _route: ActivatedRoute, private _repos: GithubService, private _db: FirestoreService, private _auth: AuthService) { }
 
@@ -73,6 +74,7 @@ export class RepoDetailComponent implements OnInit {
           if (user.bookmarks.some(b => b.id === this.repository.id)) {
             this.isBookmarked = true;
           }
+          this.isModerator = user.role === 'moderator' ? true : false;
         });
       });
     });
@@ -102,6 +104,10 @@ export class RepoDetailComponent implements OnInit {
     this._db.addBookmark(this.repository, this._auth.getCurrentUser().uid).subscribe(() => {
       this.isBookmarked = true;
     });
+  }
+
+  canDelete(note: INote): boolean {
+    return this.isModerator || note.authorId === this._auth.getCurrentUser().uid;
   }
 
   removeFromBookmarks() {
