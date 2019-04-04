@@ -12,19 +12,21 @@ import { isNullOrUndefined } from 'util';
 import { IRepoResponse } from '../models/ApiResponses/IRepoResponse';
 import { ICommitResponse } from '../models/ApiResponses/ICommitResponse';
 import { IIssueResponse } from '../models/ApiResponses/IIssueResponse';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GithubService {
   baseUrl = 'https://api.github.com/';
+  OAuthToken = environment.githubOAuthToken;
 
   constructor(private _http: HttpClient) { }
 
   // Retrieves a set of organizations and sorts them by their member count.
   getTopOrgs(): Observable<IOrg[]> {
     const organizations: IOrg[] = [];
-    const params = new HttpParams().set('since', '100');
+    const params = new HttpParams().set('since', '100').set('Authorization', 'token ' + this.OAuthToken);
     this._http.get<IOrgResponse[]>(this.baseUrl + 'organizations', {params: params}).subscribe(orgs => {
       orgs.forEach(org => {
         const newOrg: IOrg = {
@@ -43,7 +45,11 @@ export class GithubService {
   getPopularRepos(createdOn: Date): Observable<IRepo[]> {
     const formattedDate = formatDate(createdOn.toISOString(), 'yyyy-MM-dd', 'en-US');
     const repositories: IRepo[] = [];
-    const params = new HttpParams().set('q', `created:>=${formattedDate}`).set('sort', 'stars').set('order', 'desc').set('per_page', '8');
+    const params = new HttpParams().set('q', `created:>=${formattedDate}`)
+    .set('sort', 'stars')
+    .set('order', 'desc')
+    .set('per_page', '8')
+    .set('Authorization', 'token ' + this.OAuthToken);
     this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).subscribe(res => {
       res.items.forEach(repo => {
         const newRepo: IRepo = {
@@ -71,7 +77,7 @@ export class GithubService {
     if (!isNullOrUndefined(searchParams.watcherThreshold)) { query += `watchers:>=${searchParams.watcherThreshold} `; }
     if (!isNullOrUndefined(searchParams.issueThreshold)) { query += `good-first-issues:>=${searchParams.firstIssueThreshold} `; }
     if (!isNullOrUndefined(searchParams.license)) { query += `license:${searchParams.license} `; }
-    const params = new HttpParams().set('q', `${query}`).set('per_page', '30');
+    const params = new HttpParams().set('q', `${query}`).set('per_page', '30').set('Authorization', 'token ' + this.OAuthToken);
     this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).subscribe(res => {
       res.items.forEach(repo => {
         const newRepo: IRepo = {
@@ -90,18 +96,19 @@ export class GithubService {
 
   // I almost died while trying to figure this out
   getRepoDetails(id: string): Observable<[IRepoResponse, ICommitResponse[], IIssueResponse[]]> {
-    return this._http.get<IRepoResponse>(this.baseUrl + 'repositories/' + id).pipe(
+    const params = new HttpParams().set('Authorization', 'token ' + this.OAuthToken);
+    return this._http.get<IRepoResponse>(this.baseUrl + 'repositories/' + id, {params: params}).pipe(
       mergeMap(repo => forkJoin([
-        this._http.get<IRepoResponse>(this.baseUrl + 'repositories/' + id),
-        this._http.get<ICommitResponse[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/commits`),
-        this._http.get<IIssueResponse[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/issues`)]))
+        this._http.get<IRepoResponse>(this.baseUrl + 'repositories/' + id, {params: params}),
+        this._http.get<ICommitResponse[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/commits`, {params: params}),
+        this._http.get<IIssueResponse[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/issues`, {params: params})]))
     );
   }
 
   // Fetch a list of repos to show on the browse component when there are no filters
   getNewRepos(): Observable<IRepo[]> {
     const repositories: IRepo[] = [];
-    const params = new HttpParams().set('q', 'is:public').set('per_page', '28');
+    const params = new HttpParams().set('q', 'is:public').set('per_page', '28').set('Authorization', 'token ' + this.OAuthToken);
     this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).subscribe(res => {
       res.items.forEach(repo => {
         const newRepo: IRepo = {

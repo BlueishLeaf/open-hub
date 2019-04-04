@@ -50,42 +50,46 @@ export class RepoDetailComponent implements OnInit {
           title: issue.title
         });
       });
-      this._db.getNotesForRepo(data[0].name).subscribe(notes => {
-        this.repoDetails = {
-          id: data[0].id,
-          name: data[0].name,
-          owner: data[0].owner.login,
-          description: data[0].description,
-          watchers: data[0].watchers_count,
-          stars: data[0].stargazers_count,
-          forks: data[0].forks_count,
-          commits: commits,
-          issues: issues,
-          notes: notes
-        };
-        this.repository = {
-          id: this.repoDetails.id,
-          name: this.repoDetails.name,
-          owner: this.repoDetails.owner,
-          stars: this.repoDetails.stars,
-          watchers: this.repoDetails.watchers,
-          description: this.repoDetails.description
-        };
-        if (!isNullOrUndefined(this._auth.getCurrentUser())) {
-          this._db.getUser(this._auth.getCurrentUser().uid).subscribe(user => {
-            if (user.bookmarks.some(b => b.id === this.repository.id)) {
-              this.isBookmarked = true;
-            }
-            this.isModerator = user.role === 'moderator' ? true : false;
-          });
-        }
-      });
+      this.repoDetails = {
+        id: data[0].id,
+        name: data[0].name,
+        owner: data[0].owner.login,
+        description: data[0].description,
+        watchers: data[0].watchers_count,
+        stars: data[0].stargazers_count,
+        forks: data[0].forks_count,
+        commits: commits,
+        issues: issues
+      };
+      this.repository = {
+        id: this.repoDetails.id,
+        name: this.repoDetails.name,
+        owner: this.repoDetails.owner,
+        stars: this.repoDetails.stars,
+        watchers: this.repoDetails.watchers,
+        description: this.repoDetails.description
+      };
+      if (!isNullOrUndefined(this._auth.getCurrentUser())) {
+        this._db.getUser(this._auth.getCurrentUser().uid).subscribe(user => {
+          if (user.bookmarks.some(b => b.id === this.repository.id)) {
+            this.isBookmarked = true;
+          }
+          this.isModerator = user.role === 'moderator' ? true : false;
+        });
+      }
     });
     this.display = 'commits';
   }
 
   checkLogin(): boolean {
     return this._auth.isLoggedIn() ? true : false;
+  }
+
+  getNotes() {
+    this._db.getNotesForRepo(this.repoDetails.name).subscribe(notes => {
+      this.repoDetails.notes = notes;
+      this.display = 'notes';
+    });
   }
 
   addNote() {
