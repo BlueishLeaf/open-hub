@@ -31,18 +31,22 @@ export class LoginComponent implements OnInit {
 
   login() {
     this._auth.emailLogin(this.email, this.password);
+    this._router.navigate(['bookmarks']);
   }
 
   facebookLogin() {
     this._auth.facebookLogin();
+    this._router.navigate(['bookmarks']);
   }
 
   githubLogin() {
     this._auth.githubLogin();
+    this._router.navigate(['bookmarks']);
   }
 
   googleLogin() {
     this._auth.googleLogin();
+    this._router.navigate(['bookmarks']);
   }
 
 }

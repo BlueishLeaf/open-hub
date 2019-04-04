@@ -33,6 +33,8 @@ import { FirestoreService } from './services/firestore.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PopularComponent } from './popular/popular.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AnonGuardService } from './services/anon-guard.service';
 
 @NgModule({
    declarations: [
@@ -60,16 +62,16 @@ import { BookmarksComponent } from './bookmarks/bookmarks.component';
       MarkdownModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
-         { path: 'login', component: LoginComponent, pathMatch: 'full'},
-         { path: 'register', component: RegisterComponent, pathMatch: 'full'},
+         { path: 'login', component: LoginComponent, pathMatch: 'full', canActivate: [AnonGuardService]},
+         { path: 'register', component: RegisterComponent, pathMatch: 'full', canActivate: [AnonGuardService]},
          { path: 'browse', component: BrowseComponent, pathMatch: 'full'},
          { path: 'popular', component: PopularComponent, pathMatch: 'full'},
          { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},
-         { path: 'bookmarks', component: BookmarksComponent, pathMatch: 'full'},
+         { path: 'bookmarks', component: BookmarksComponent, pathMatch: 'full', canActivate: [AuthGuardService]},
          { path: 'repo/:id', component: RepoDetailComponent, pathMatch: 'full'}
       ])
    ],
-   providers: [AuthService, GithubService, FirestoreService, AngularFireAuth],
+   providers: [AuthService, GithubService, AngularFireAuth],
    bootstrap: [
       AppComponent
    ]

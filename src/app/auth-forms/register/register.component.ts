@@ -39,7 +39,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    this._auth.register(this.email, this.password);
+    this._auth.register(this.email, this.password, this.fName, this.lName);
+    this._router.navigate(['bookmarks']);
   }
 
 }

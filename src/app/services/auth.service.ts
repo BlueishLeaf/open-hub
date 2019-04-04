@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
+  private loggedIn: boolean;
 
 constructor(public afAuth: AngularFireAuth) {
   this.user = this.afAuth.authState;
@@ -25,6 +26,7 @@ constructor(public afAuth: AngularFireAuth) {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.GoogleAuthProvider();
       this.afAuth.auth.signInWithPopup(provider).then(res => {
+        this.loggedIn = true;
         resolve(res);
       }, err => reject(err));
     });
@@ -34,6 +36,7 @@ constructor(public afAuth: AngularFireAuth) {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.FacebookAuthProvider();
       this.afAuth.auth.signInWithPopup(provider).then(res => {
+        this.loggedIn = true;
         resolve(res);
       }, err => reject(err));
     });
@@ -43,6 +46,7 @@ constructor(public afAuth: AngularFireAuth) {
     return new Promise<any>((resolve, reject) => {
       const provider = new firebase.auth.GithubAuthProvider();
       this.afAuth.auth.signInWithPopup(provider).then(res => {
+        this.loggedIn = true;
         resolve(res);
       }, err => reject(err));
     });
@@ -51,14 +55,17 @@ constructor(public afAuth: AngularFireAuth) {
   emailLogin(username: string, password: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       this.afAuth.auth.signInWithEmailAndPassword(username, password).then(res => {
+        this.loggedIn = true;
         resolve(res);
       }, err => reject(err));
     });
   }
 
-  register(username: string, password: string): Promise<any> {
+  register(username: string, password: string, fName: string, lName: string): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       firebase.auth().createUserWithEmailAndPassword(username, password).then(res => {
+        res.user.updateProfile({ displayName : fName + ' ' + lName, photoURL: ''});
+        this.loggedIn = true;
         resolve(res);
       }, err => reject(err));
     });
@@ -66,14 +73,11 @@ constructor(public afAuth: AngularFireAuth) {
 
   logout() {
     this.afAuth.auth.signOut();
+    this.loggedIn = false;
   }
 
   isLoggedIn() {
-    if (this.userDetails !== null) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.loggedIn;
   }
 
   getCurrentUser() {
