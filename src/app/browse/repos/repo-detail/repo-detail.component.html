@@ -34,14 +34,14 @@
   <div id="buttons" class="row">
     <div class="container">
       <div class="btn-group btn-group-lg btn-group-toggle" data-toggle="buttons" role="group" aria-label="list">
-        <button type="button" class="btn btn-secondary" (click)="display='commits'">Commits</button>
-        <button type="button" class="btn btn-secondary" (click)="display='issues'">Issues</button>
+        <button type="button" class="btn btn-secondary" (click)="displayType=DisplayType.Commits">Commits</button>
+        <button type="button" class="btn btn-secondary" (click)="displayType=DisplayType.Issues">Issues</button>
         <button type="button" class="btn btn-secondary" (click)="getNotes()">Notes</button>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="container" *ngIf="display==='commits' && repoDetails">
+    <div class="container" *ngIf="displayType===DisplayType.Commits && repoDetails">
       <div id="commit" class="container" *ngFor="let commit of repoDetails.commits">
         <a [href]="'https://github.com/' + repoDetails.owner + '/' + repoDetails.name + '/commit/' + commit.sha" target="_blank">
           <div class="card">
@@ -56,7 +56,7 @@
         </a>
       </div>
     </div>
-    <div class="container" *ngIf="display==='issues' && repoDetails">
+    <div class="container" *ngIf="displayType===DisplayType.Issues && repoDetails">
       <div id="issue" class="container" *ngFor="let issue of repoDetails.issues">
         <a [href]="issueLink" target="_blank">
           <div class="card">
@@ -71,7 +71,7 @@
         </a>
       </div>
     </div>
-    <div class="container" *ngIf="display==='notes'">
+    <div class="container" *ngIf="displayType===DisplayType.Notes">
       <div id="editCard" *ngIf="checkLogin()" class="card-body">
         <h3>Leave a note for others to see!</h3>
         <textarea class="form-control" [(ngModel)]="currentNote" #fcontrol="ngModel" required></textarea>

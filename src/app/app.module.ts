@@ -29,12 +29,13 @@ import { SearchComponent } from './browse/search/search.component';
 import { AuthService } from './services/auth.service';
 import { GithubService } from './services/github.service';
 import { environment } from 'src/environments/environment';
-import { FirestoreService } from './services/firestore.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PopularComponent } from './popular/popular.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { AnonGuardService } from './services/anon-guard.service';
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from './state-management/states/auth.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 @NgModule({
    declarations: [
@@ -60,10 +61,12 @@ import { AnonGuardService } from './services/anon-guard.service';
       HttpClientModule,
       AngularFireModule.initializeApp(environment.firebase),
       MarkdownModule.forRoot(),
+      NgxsModule.forRoot([AuthState], {developmentMode: true}),
+      NgxsReduxDevtoolsPluginModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
-         { path: 'login', component: LoginComponent, pathMatch: 'full', canActivate: [AnonGuardService]},
-         { path: 'register', component: RegisterComponent, pathMatch: 'full', canActivate: [AnonGuardService]},
+         { path: 'login', component: LoginComponent, pathMatch: 'full'},
+         { path: 'register', component: RegisterComponent, pathMatch: 'full'},
          { path: 'browse', component: BrowseComponent, pathMatch: 'full'},
          { path: 'popular', component: PopularComponent, pathMatch: 'full'},
          { path: 'orgs', component: OrgListComponent, pathMatch: 'full'},

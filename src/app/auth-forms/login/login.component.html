@@ -17,20 +17,20 @@
           </div>
         </div>
         <div id="buttonWrapper">
-          <button type="submit" class="btn btn-secondary btn-lg" [disabled]="loginForm.invalid" (click)="login()">Login</button>
+          <button type="submit" class="btn btn-secondary btn-lg" [disabled]="loginForm.invalid" (click)="emailLogin()">Login</button>
         </div>
         <div>
           <h3>Or login with one of the following...</h3>
         </div>
         <div id="logos" class="row">
           <div class="col">
-            <img class="logo" src="../../../assets/logos/google.png" (click)="googleLogin()">
+            <img class="logo" src="../../../assets/logos/google.png" (click)="oAuthLogin(LoginProvider.Google)">
           </div>
           <div class="col">
-            <img class="logo" src="../../../assets/logos/github.png" (click)="githubLogin()">
+            <img class="logo" src="../../../assets/logos/github.png" (click)="oAuthLogin(LoginProvider.GitHub)">
           </div>
           <div class="col">
-            <img class="logo" src="../../../assets/logos/facebook.png" (click)="facebookLogin()">
+            <img class="logo" src="../../../assets/logos/facebook.png" (click)="oAuthLogin(LoginProvider.Facebook)">
           </div>
         </div>
       </form>

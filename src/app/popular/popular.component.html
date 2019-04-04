@@ -2,10 +2,10 @@
   <div class="container">
     <div id="buttons" class="row">
       <div class="container">
-        <div class="btn-group btn-group-lg btn-group-toggle" data-toggle="buttons" role="group" aria-label="Time frame">
-          <button type="button" class="btn btn-secondary" (click)="getPopular('day')" checked>Today</button>
-          <button type="button" class="btn btn-secondary" (click)="getPopular('week')">This Week</button>
-          <button type="button" class="btn btn-secondary" (click)="getPopular('month')">This Month</button>
+        <div class="btn-group btn-group-lg btn-group-toggle" data-toggle="buttons" role="group" aria-label="Time period">
+          <button type="button" class="btn btn-secondary" (click)="getPopular(TimePeriod.Day)" checked>Today</button>
+          <button type="button" class="btn btn-secondary" (click)="getPopular(TimePeriod.Week)">This Week</button>
+          <button type="button" class="btn btn-secondary" (click)="getPopular(TimePeriod.Month)">This Month</button>
         </div>
       </div>
     </div>

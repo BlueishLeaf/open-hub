@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { Register } from 'src/app/state-management/actions/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -16,12 +18,9 @@ export class RegisterComponent implements OnInit {
   password: string;
   confirmPassword: string;
 
-  constructor(private _fb: FormBuilder, private _auth: AuthService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _store: Store) { }
 
   ngOnInit() {
-    if (this._auth.isLoggedIn()) {
-      this._router.navigate(['browse']);
-    }
     this.registerForm = this._fb.group({
       fName: ['', [Validators.required, Validators.maxLength(30)]],
       lName: ['', [Validators.required, Validators.maxLength(30)]],
@@ -38,9 +37,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  register() {
-    this._auth.register(this.email, this.password, this.fName, this.lName);
-    this._router.navigate(['bookmarks']);
-  }
+  register = () => this._store.dispatch(new Register({email: this.email, password: this.password, displayName: `${this.fName} ${this.lName}`}));
 
 }

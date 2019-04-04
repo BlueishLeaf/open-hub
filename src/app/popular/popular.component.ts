@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GithubService } from '../services/github.service';
 import { IRepo } from '../models/IRepo';
+import { TimePeriod } from './TimePeriod.enum';
 
 @Component({
   selector: 'app-popular',
@@ -8,6 +9,7 @@ import { IRepo } from '../models/IRepo';
   styleUrls: ['./popular.component.scss']
 })
 export class PopularComponent implements OnInit {
+  TimePeriod = TimePeriod;
   currentDate = new Date();
   repositories: IRepo[];
 
@@ -15,30 +17,23 @@ export class PopularComponent implements OnInit {
 
   ngOnInit() {
     const targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 7);
-    this._repos.getPopularRepos(targetDate).subscribe(repos => {
-      this.repositories = repos;
-    });
+    this._repos.getPopularRepos(targetDate).subscribe(repos => this.repositories = repos);
   }
 
-  getPopular(period: string) {
+  getPopular(timePeriod: TimePeriod) {
     let targetDate: Date;
-    switch (period) {
-      case 'day':
+    switch (timePeriod) {
+      case TimePeriod.Day:
         targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 1);
         break;
-      case 'week':
+      case TimePeriod.Week:
         targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 7);
         break;
-      case 'month':
+      case TimePeriod.Month:
         targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 30);
         break;
-      default:
-        targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 1);
-        break;
     }
-    this._repos.getPopularRepos(targetDate).subscribe(repos => {
-      this.repositories = repos;
-    });
+    this._repos.getPopularRepos(targetDate).subscribe(repos => this.repositories = repos);
   }
 
 }

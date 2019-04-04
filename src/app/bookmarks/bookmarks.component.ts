@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IRepo } from '../models/IRepo';
 import { IUser } from '../models/IUser';
-import { AuthService } from '../services/auth.service';
 import { FirestoreService } from '../services/firestore.service';
-import { GithubService } from '../services/github.service';
+import { Store } from '@ngxs/store';
+import { AuthState } from '../state-management/states/auth.state';
 
 @Component({
   selector: 'app-bookmarks',
@@ -15,10 +15,11 @@ export class BookmarksComponent implements OnInit {
   user: firebase.User;
   userDetails: IUser;
 
-  constructor(private _auth: AuthService, private _db: FirestoreService, private _repos: GithubService) { }
+  constructor(private _db: FirestoreService, private _store: Store) {
+    this.user = this._store.selectSnapshot(AuthState.user);
+  }
 
   ngOnInit() {
-    this.user = this._auth.getCurrentUser();
     this._db.getUser(this.user.uid).subscribe(userDetails => {
       this.userDetails = userDetails;
       this.repositories = userDetails.bookmarks;

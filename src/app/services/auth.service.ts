@@ -1,86 +1,32 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { LoginProvider } from '../models/LoginProvider.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private user: Observable<firebase.User>;
-  private userDetails: firebase.User = null;
-  private loggedIn: boolean;
 
-constructor(public afAuth: AngularFireAuth) {
-  this.user = this.afAuth.authState;
-  this.user.subscribe(user => {
-    if (user) {
-      this.userDetails = user;
-    } else {
-      this.userDetails = null;
+  constructor(private _afAuth: AngularFireAuth) {}
+
+  async oAuthLogin(loginProvider: LoginProvider): Promise<firebase.auth.UserCredential> {
+    switch (loginProvider) {
+      case LoginProvider.Google:
+        return await this._afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+      case LoginProvider.Facebook:
+        return await this._afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider());
+      case LoginProvider.GitHub:
+        return await this._afAuth.auth.signInWithPopup(new firebase.auth.GithubAuthProvider());
     }
-  });
-}
-
-  googleLogin(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      this.afAuth.auth.signInWithPopup(provider).then(res => {
-        this.loggedIn = true;
-        resolve(res);
-      }, err => reject(err));
-    });
   }
 
-  facebookLogin(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      const provider = new firebase.auth.FacebookAuthProvider();
-      this.afAuth.auth.signInWithPopup(provider).then(res => {
-        this.loggedIn = true;
-        resolve(res);
-      }, err => reject(err));
-    });
-  }
+  emailLogin = async (email: string, password: string): Promise<firebase.auth.UserCredential> => await this._afAuth.auth.signInWithEmailAndPassword(email, password);
 
-  githubLogin(): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      const provider = new firebase.auth.GithubAuthProvider();
-      this.afAuth.auth.signInWithPopup(provider).then(res => {
-        this.loggedIn = true;
-        resolve(res);
-      }, err => reject(err));
-    });
-  }
+  register = async (email: string, password: string): Promise<firebase.auth.UserCredential> => await this._afAuth.auth.createUserWithEmailAndPassword(email, password);
 
-  emailLogin(username: string, password: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.afAuth.auth.signInWithEmailAndPassword(username, password).then(res => {
-        this.loggedIn = true;
-        resolve(res);
-      }, err => reject(err));
-    });
-  }
+  updateProfile = async (userToUpdate: firebase.User, displayName: string, photoUrl: string): Promise<void> => await userToUpdate.updateProfile({displayName: displayName, photoURL: photoUrl});
 
-  register(username: string, password: string, fName: string, lName: string): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(username, password).then(res => {
-        res.user.updateProfile({ displayName : fName + ' ' + lName, photoURL: ''});
-        this.loggedIn = true;
-        resolve(res);
-      }, err => reject(err));
-    });
-  }
-
-  logout() {
-    this.afAuth.auth.signOut();
-    this.loggedIn = false;
-  }
-
-  isLoggedIn() {
-    return this.loggedIn;
-  }
-
-  getCurrentUser() {
-    return this.userDetails;
-  }
+  logout = async (): Promise<void> => await this._afAuth.auth.signOut();
 }

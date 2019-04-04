@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^7.2.4",
     "@angular/platform-browser-dynamic": "^7.2.4",
     "@angular/router": "^7.2.4",
+    "@ngxs/store": "^3.4.3",
     "aws-sdk": "^2.401.0",
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
@@ -50,6 +51,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.2.4"
+    "typescript": "~3.2.4",
+    "@ngxs/devtools-plugin": "^3.4.3"
   }
 }

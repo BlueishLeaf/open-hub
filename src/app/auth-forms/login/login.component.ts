@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { EmailLogin, OAuthLogin } from 'src/app/state-management/actions/auth.actions';
+import { LoginProvider } from 'src/app/models/LoginProvider.enum';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  LoginProvider = LoginProvider;
   loginForm: FormGroup;
   email: string;
   password: string;
 
-  constructor(private _fb: FormBuilder, private _auth: AuthService, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _store: Store) { }
 
   ngOnInit() {
-    if (this._auth.isLoggedIn()) {
-      this._router.navigate(['browse']);
-    }
     this.loginForm = this._fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -29,24 +28,8 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
-    this._auth.emailLogin(this.email, this.password);
-    this._router.navigate(['bookmarks']);
-  }
+  emailLogin = () => this._store.dispatch(new EmailLogin({ email: this.email, password: this.password }));
 
-  facebookLogin() {
-    this._auth.facebookLogin();
-    this._router.navigate(['bookmarks']);
-  }
-
-  githubLogin() {
-    this._auth.githubLogin();
-    this._router.navigate(['bookmarks']);
-  }
-
-  googleLogin() {
-    this._auth.googleLogin();
-    this._router.navigate(['bookmarks']);
-  }
+  oAuthLogin = (provider: LoginProvider) => this._store.dispatch(new OAuthLogin({ provider }));
 
 }

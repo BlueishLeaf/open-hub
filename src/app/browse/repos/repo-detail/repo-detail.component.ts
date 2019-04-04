@@ -9,6 +9,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { INote } from 'src/app/models/INote';
 import { IRepo } from 'src/app/models/IRepo';
 import { isNullOrUndefined } from 'util';
+import { Store } from '@ngxs/store';
+import { AuthState } from 'src/app/state-management/states/auth.state';
+import { DisplayType } from './DisplayType.enum';
 
 @Component({
   selector: 'app-repo-detail',
@@ -16,16 +19,20 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./repo-detail.component.scss']
 })
 export class RepoDetailComponent implements OnInit {
+  DisplayType = DisplayType;
+  user: firebase.User;
   repoDetails: IRepoDetail;
   repository: IRepo;
-  display: string;
+  displayType: DisplayType;
   commitLink: string;
   issueLink: string;
   currentNote = '';
   isBookmarked = false;
   isModerator = false;
 
-  constructor(private _route: ActivatedRoute, private _repos: GithubService, private _db: FirestoreService, private _auth: AuthService) { }
+  constructor(private _route: ActivatedRoute, private _repos: GithubService, private _db: FirestoreService, private _store: Store) {
+    this.user = this._store.selectSnapshot(AuthState.user);
+  }
 
   ngOnInit() {
     const id = this._route.snapshot.paramMap.get('id');
@@ -69,35 +76,30 @@ export class RepoDetailComponent implements OnInit {
         watchers: this.repoDetails.watchers,
         description: this.repoDetails.description
       };
-      if (!isNullOrUndefined(this._auth.getCurrentUser())) {
-        this._db.getUser(this._auth.getCurrentUser().uid).subscribe(user => {
-          if (user.bookmarks.some(b => b.id === this.repository.id)) {
-            this.isBookmarked = true;
-          }
+      if (!isNullOrUndefined(this.user)) {
+        this._db.getUser(this.user.uid).subscribe(user => {
+          this.isBookmarked = user.bookmarks.some(b => b.id === this.repository.id) ? true : false;
           this.isModerator = user.role === 'moderator' ? true : false;
         });
       }
     });
-    this.display = 'commits';
+    this.displayType = DisplayType.Commits;
   }
 
-  checkLogin(): boolean {
-    return this._auth.isLoggedIn() ? true : false;
-  }
+  checkLogin = (): boolean => !isNullOrUndefined(this.user) ? true : false;
 
   getNotes() {
     this._db.getNotesForRepo(this.repoDetails.name).subscribe(notes => {
       this.repoDetails.notes = notes;
-      this.display = 'notes';
+      this.displayType = DisplayType.Notes;
     });
   }
 
   addNote() {
-    const user = this._auth.getCurrentUser();
     const note: INote = {
       content: this.currentNote,
-      authorEmail: user.email,
-      authorId: user.uid,
+      authorEmail: this.user.email,
+      authorId: this.user.uid,
       timestamp: new Date(),
       repository: this.repoDetails.name
     };
@@ -107,27 +109,15 @@ export class RepoDetailComponent implements OnInit {
     });
   }
 
-  addToBookmarks() {
-    this._db.addBookmark(this.repository, this._auth.getCurrentUser().uid).subscribe(() => {
-      this.isBookmarked = true;
-    });
-  }
+  addToBookmarks = () => this._db.addBookmark(this.repository, this.user.uid).subscribe(() => this.isBookmarked = true);
 
-  canDelete(note: INote): boolean {
-    return this.isModerator || note.authorId === this._auth.getCurrentUser().uid;
-  }
+  canDelete = (note: INote): boolean => this.isModerator || note.authorId === this.user.uid;
 
-  removeFromBookmarks() {
-    this._db.removeBookmark(this.repository, this._auth.getCurrentUser().uid).subscribe(() => {
-      this.isBookmarked = false;
-    });
-  }
+  removeFromBookmarks = () => this._db.removeBookmark(this.repository, this.user.uid).subscribe(() => this.isBookmarked = false);
 
   removeNote(note: INote) {
     this._db.deleteNote(note.id).subscribe(() => {
-      this._db.getNotesForRepo(this.repoDetails.name).subscribe(notes => {
-        this.repoDetails.notes = notes;
-      });
+      this._db.getNotesForRepo(this.repoDetails.name).subscribe(notes => this.repoDetails.notes = notes);
     });
   }
 
