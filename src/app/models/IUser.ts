@@ -2,6 +2,6 @@ import { IRepo } from './IRepo';
 
 export interface IUser {
     email: string;
-    role: string;
-    bookmarks: IRepo[];
+    role?: string;
+    bookmarks?: IRepo[];
 }

@@ -20,7 +20,7 @@ import { DisplayType } from './DisplayType.enum';
 })
 export class RepoDetailComponent implements OnInit {
   DisplayType = DisplayType;
-  user: firebase.User;
+  user: firebase.UserInfo;
   repoDetails: IRepoDetail;
   repository: IRepo;
   displayType: DisplayType;

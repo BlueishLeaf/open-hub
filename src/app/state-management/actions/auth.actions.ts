@@ -12,7 +12,7 @@ export class OAuthLogin {
 
 export class LoginSuccess {
     static readonly type = '[Auth] Login successful';
-    constructor(public payload: firebase.User) {}
+    constructor(public payload: firebase.UserInfo) {}
 }
 
 export class Register {

@@ -12,7 +12,7 @@ import { AuthState } from '../state-management/states/auth.state';
 })
 export class BookmarksComponent implements OnInit {
   repositories: IRepo[];
-  user: firebase.User;
+  user: firebase.UserInfo;
   userDetails: IUser;
 
   constructor(private _db: FirestoreService, private _store: Store) {

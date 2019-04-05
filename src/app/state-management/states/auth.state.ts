@@ -1,9 +1,10 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { AuthService } from 'src/app/services/auth.service';
 import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess } from '../actions/auth.actions';
+import { IUser } from 'src/app/models/IUser';
 
 export interface AuthStateModel {
-  user?: firebase.User;
+  user?: firebase.UserInfo;
 }
 
 @State<AuthStateModel>({
@@ -27,14 +28,23 @@ export class AuthState {
   }
 
   @Action(LoginSuccess)
-  loginSuccess({ patchState }: StateContext<AuthStateModel>, {payload}: LoginSuccess) {
-    patchState({user: payload});
+  loginSuccess({ setState }: StateContext<AuthStateModel>, {payload}: LoginSuccess) {
+    // Need to create new smaller user info object, as firebase throws a monster back
+    const user: firebase.UserInfo = {
+      email: payload.email,
+      uid: payload.uid,
+      displayName: payload.displayName,
+      photoURL: payload.photoURL,
+      phoneNumber: payload.phoneNumber,
+      providerId: payload.providerId
+    };
+    setState({user: user});
   }
 
   @Action(Register)
-  register({ patchState }: StateContext<AuthStateModel>, { payload }: Register) {
+  register({ setState }: StateContext<AuthStateModel>, { payload }: Register) {
     return this._auth.register(payload.email, payload.password).then(res => {
-      this._auth.updateProfile(res.user, payload.displayName, '').then(() => patchState({ user: res.user }));
+      this._auth.updateProfile(res.user, payload.displayName, '').then(() => setState({ user: res.user }));
     });
   }
 

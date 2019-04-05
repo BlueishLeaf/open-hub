@@ -61,7 +61,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
       HttpClientModule,
       AngularFireModule.initializeApp(environment.firebase),
       MarkdownModule.forRoot(),
-      NgxsModule.forRoot([AuthState], {developmentMode: true}),
+      NgxsModule.forRoot([AuthState], {developmentMode: !environment.production}),
       NgxsReduxDevtoolsPluginModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
