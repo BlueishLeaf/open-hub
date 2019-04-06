@@ -68,6 +68,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       NgxsReduxDevtoolsPluginModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},
+         { path: 'home', component: WelcomeComponent, pathMatch: 'full'},
          { path: 'login', component: LoginComponent, pathMatch: 'full'},
          { path: 'register', component: RegisterComponent, pathMatch: 'full'},
          { path: 'browse', component: BrowseComponent, pathMatch: 'full'},

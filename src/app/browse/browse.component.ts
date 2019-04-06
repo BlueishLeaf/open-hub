@@ -56,7 +56,6 @@ export class BrowseComponent implements OnInit {
       }
       query += 'is:public';
     }
-    console.log(query);
     this._store.dispatch(new SearchRepos(query));
   }
 

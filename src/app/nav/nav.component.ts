@@ -3,6 +3,7 @@ import { Store, Select } from '@ngxs/store';
 import { Logout } from '../state-management/actions/auth.actions';
 import { AuthState } from '../state-management/states/auth.state';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -14,10 +15,13 @@ export class NavComponent {
   user: Partial<firebase.UserInfo>;
   isCollapsed = true;
 
-  constructor(private _store: Store) {
+  constructor(private _store: Store, private _router: Router) {
     this.user$.subscribe(user => this.user = user);
   }
 
-  logout = () => this._store.dispatch(new Logout());
+  logout() {
+    this._router.navigate(['']);
+    this._store.dispatch(new Logout());
+  }
 
 }

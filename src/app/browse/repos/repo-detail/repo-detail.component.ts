@@ -26,8 +26,6 @@ export class RepoDetailComponent implements OnInit {
   issues: IIssue[];
   notes: INote[];
   displayType: DisplayType;
-  commitLink: string;
-  issueLink: string;
   currentNote = '';
   isBookmarked = false;
   isModerator = false;

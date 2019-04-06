@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngxs/store';
+import { Store, Select } from '@ngxs/store';
 import { Register } from 'src/app/state-management/actions/auth.actions';
+import { AuthState } from 'src/app/state-management/states/auth.state';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,6 +12,7 @@ import { Register } from 'src/app/state-management/actions/auth.actions';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  @Select(AuthState.user) user$: Observable<firebase.UserInfo>;
   registerForm: FormGroup;
   fName: string;
   lName: string;
@@ -16,9 +20,14 @@ export class RegisterComponent implements OnInit {
   password: string;
   confirmPassword: string;
 
-  constructor(private _fb: FormBuilder, private _store: Store) { }
+  constructor(private _fb: FormBuilder, private _store: Store, private _router: Router) { }
 
   ngOnInit() {
+    this.user$.subscribe(user => {
+      if (user) {
+        this._router.navigate(['']);
+      }
+    });
     this.registerForm = this._fb.group({
       fName: ['', [Validators.required, Validators.maxLength(30)]],
       lName: ['', [Validators.required, Validators.maxLength(30)]],

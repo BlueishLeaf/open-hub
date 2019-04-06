@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { Store } from '@ngxs/store';
 import { AuthState } from '../state-management/states/auth.state';
@@ -9,7 +9,13 @@ import { AuthState } from '../state-management/states/auth.state';
 })
 export class AuthGuardService {
 
-  constructor(private _store: Store) { }
+  constructor(private _store: Store, private _router: Router) { }
 
-  canActivate = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => isNullOrUndefined(this._store.selectSnapshot(AuthState.user)) ? false : true;
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (!isNullOrUndefined(this._store.selectSnapshot(AuthState.user))) {
+      return true;
+    }
+    this._router.navigate(['login']);
+    return false;
+  }
 }

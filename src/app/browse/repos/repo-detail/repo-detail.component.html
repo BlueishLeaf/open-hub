@@ -7,23 +7,23 @@
       <p>{{repository.description}}</p>
       <div id="stats" class="row">
         <div class="col">
-            <i class="fas fa-upload fa-3x"></i>
+          <span class="fas fa-upload fa-3x"></span>
           <div>{{commits.length}}</div>
         </div>
         <div class="col">
-            <i class="fas fa-exclamation-circle fa-3x"></i>
+          <span class="fas fa-exclamation-circle fa-3x"></span>
           <div>{{issues.length}}</div>
         </div>
         <div class="col">
-            <i class="fas fa-code-branch fa-3x"></i>
+          <span class="fas fa-code-branch fa-3x"></span>
           <div>{{repository.forks_count}}</div>
         </div>
         <div class="col">
-          <i class="fas fa-star fa-3x"></i>
+          <span class="fas fa-star fa-3x"></span>
           <div>{{repository.stargazers_count}}</div>
         </div>
         <div class="col">
-          <i class="fas fa-user fa-3x"></i>
+          <span class="fas fa-user fa-3x"></span>
           <div>{{repository.watchers_count}}</div>
         </div>
       </div>
@@ -57,7 +57,7 @@
   </div>
   <div class="container" *ngIf="displayType===DisplayType.Issues && issues">
     <div id="issue" class="container" *ngFor="let issue of issues">
-      <a [href]="issueLink" target="_blank">
+      <a [href]="'https://github.com/' + repository.owner.login + '/' + repository.name + '/issues/' + issue.number" target="_blank">
         <div class="card">
           <div class="card-header">Issue</div>
           <div class="card-body">
