@@ -1,6 +1,6 @@
-import { IUserResponse } from './IUserResponse';
+import { IGithubUser } from './IGithubUser';
 
-export interface IIssueResponse {
+export interface IIssue {
     url: string;
     repository_url: string;
     labels_url: string;
@@ -11,7 +11,7 @@ export interface IIssueResponse {
     node_id: string;
     number: number;
     title: string;
-    user: IUserResponse;
+    user: IGithubUser;
     labels: any[];
     state: string;
     locked: boolean;

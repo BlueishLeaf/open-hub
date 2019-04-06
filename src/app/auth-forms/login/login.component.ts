@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { EmailLogin, OAuthLogin } from 'src/app/state-management/actions/auth.actions';
-import { LoginProvider } from 'src/app/models/LoginProvider.enum';
+import { LoginProvider } from 'src/app/models/enums/LoginProvider.enum';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +30,6 @@ export class LoginComponent implements OnInit {
 
   emailLogin = () => this._store.dispatch(new EmailLogin({ email: this.email, password: this.password }));
 
-  oAuthLogin = (provider: LoginProvider) => this._store.dispatch(new OAuthLogin({ provider }));
+  oAuthLogin = (provider: LoginProvider) => this._store.dispatch(new OAuthLogin(provider));
 
 }

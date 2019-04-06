@@ -1,4 +1,4 @@
-export interface IOrgResponse {
+export interface IOrg {
     login: string;
     id: number;
     node_id: string;

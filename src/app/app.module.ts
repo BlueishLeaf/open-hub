@@ -36,6 +36,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './state-management/states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { RepoState } from './state-management/states/repo.state';
 
 @NgModule({
    declarations: [
@@ -61,7 +62,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
       HttpClientModule,
       AngularFireModule.initializeApp(environment.firebase),
       MarkdownModule.forRoot(),
-      NgxsModule.forRoot([AuthState], {developmentMode: !environment.production}),
+      NgxsModule.forRoot([AuthState, RepoState], {developmentMode: !environment.production}),
       NgxsReduxDevtoolsPluginModule.forRoot(),
       RouterModule.forRoot([
          { path: '', component: WelcomeComponent, pathMatch: 'full'},

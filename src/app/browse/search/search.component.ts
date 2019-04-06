@@ -1,7 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { GithubService } from 'src/app/services/github.service';
-import { IRepo } from 'src/app/models/IRepo';
+import { ISearchQuery } from 'src/app/models/domain/ISearchQuery';
 
 @Component({
   selector: 'app-search',
@@ -9,7 +8,7 @@ import { IRepo } from 'src/app/models/IRepo';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  @Output() searchEvent = new EventEmitter<IRepo[]>();
+  @Output() searchEvent = new EventEmitter<ISearchQuery>();
   searchForm: FormGroup;
   rName: string;
   language: string;
@@ -18,7 +17,7 @@ export class SearchComponent implements OnInit {
   license: string;
   firstIssues: number;
 
-  constructor(private _fb: FormBuilder, private _repos: GithubService) { }
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit() {
     this.searchForm = this._fb.group({
@@ -40,15 +39,13 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this._repos.searchRepos({
+    this.searchEvent.emit({
       title: (this.rName !== '') ? this.rName : null,
       language: (this.language !== '') ? this.language : null,
       starThreshold: (this.stars > 0) ? this.stars : null,
       watcherThreshold: (this.watchers) ? this.watchers : null,
       issueThreshold: (this.firstIssues) ? this.firstIssues : null,
       license: (this.license) ? this.license : null
-    }).subscribe(repos => {
-      this.searchEvent.emit(repos);
     });
   }
 

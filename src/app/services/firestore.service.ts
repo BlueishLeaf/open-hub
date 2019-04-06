@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { INote } from '../models/INote';
-import { IUser } from '../models/IUser';
-import { IRepo } from '../models/IRepo';
+import { INote } from '../models/domain/INote';
+import { IUser } from '../models/domain/IUser';
+import { IRepo } from '../models/domain/IRepo';
 
 @Injectable({
   providedIn: 'root'

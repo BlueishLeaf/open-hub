@@ -1,7 +1,6 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { AuthService } from 'src/app/services/auth.service';
-import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess } from '../actions/auth.actions';
-import { IUser } from 'src/app/models/IUser';
+import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess, LoginFailure } from '../actions/auth.actions';
 
 export interface AuthStateModel {
   user?: firebase.UserInfo;
@@ -24,7 +23,7 @@ export class AuthState {
 
   @Action(OAuthLogin)
   oAuthLogin(ctx: StateContext<AuthStateModel>, { payload }: OAuthLogin) {
-    return this._auth.oAuthLogin(payload.provider).then(res => ctx.dispatch(new LoginSuccess(res.user)));
+    return this._auth.oAuthLogin(payload).then(res => ctx.dispatch(new LoginSuccess(res.user)));
   }
 
   @Action(LoginSuccess)
@@ -41,10 +40,15 @@ export class AuthState {
     setState({user: user});
   }
 
+  @Action(LoginFailure)
+  loginFailure({ setState }: StateContext<AuthStateModel>) {
+    setState({});
+  }
+
   @Action(Register)
-  register({ setState }: StateContext<AuthStateModel>, { payload }: Register) {
+  register({ dispatch }: StateContext<AuthStateModel>, { payload }: Register) {
     return this._auth.register(payload.email, payload.password).then(res => {
-      this._auth.updateProfile(res.user, payload.displayName, '').then(() => setState({ user: res.user }));
+      this._auth.updateProfile(res.user, payload.displayName, '').then(() => dispatch(new LoginSuccess(res.user)));
     });
   }
 

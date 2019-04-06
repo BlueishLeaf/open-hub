@@ -8,6 +8,10 @@
     padding:20px;
 }
 
+h1:hover {
+    color: $primary-color;
+}
+
 .container-fluid {
     background-color: $background-color;
 }

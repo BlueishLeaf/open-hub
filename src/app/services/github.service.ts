@@ -2,16 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, forkJoin } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { IOrg } from '../models/IOrg';
-import { IOrgResponse } from '../models/ApiResponses/IOrgResponse';
-import { IRepo } from '../models/IRepo';
-import { ISearchResponse } from '../models/ApiResponses/ISearchResponse';
+import { IOrg } from '../models/domain/IOrg';
+import { IQueryResult } from '../models/domain/IQueryResult';
 import { formatDate } from '@angular/common';
-import { ISearchQuery } from '../models/ISearchQuery';
-import { isNullOrUndefined } from 'util';
-import { IRepoResponse } from '../models/ApiResponses/IRepoResponse';
-import { ICommitResponse } from '../models/ApiResponses/ICommitResponse';
-import { IIssueResponse } from '../models/ApiResponses/IIssueResponse';
+import { IRepo } from '../models/domain/IRepo';
+import { ICommit } from '../models/domain/ICommit';
+import { IIssue } from '../models/domain/IIssue';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,104 +20,37 @@ export class GithubService {
   constructor(private _http: HttpClient) { }
 
   // Retrieves a set of organizations and sorts them by their member count.
-  getTopOrgs(): Observable<IOrg[]> {
-    const organizations: IOrg[] = [];
+  getLatestOrgs(): Observable<IOrg[]> {
     const params = new HttpParams().set('since', '100').set('Authorization', 'token ' + this.OAuthToken);
-    this._http.get<IOrgResponse[]>(this.baseUrl + 'organizations', {params: params}).subscribe(orgs => {
-      orgs.forEach(org => {
-        const newOrg: IOrg = {
-          title: org.login,
-          description: org.description,
-          avatarUrl: org.avatar_url,
-          url: org.url
-        };
-        organizations.push(newOrg);
-      });
-    });
-    return of(organizations);
+    return this._http.get<IOrg[]>(this.baseUrl + 'organizations', {params: params});
   }
 
   // Retrieve the top repos created since a given date ordered by their star count
-  getPopularRepos(createdOn: Date): Observable<IRepo[]> {
-    const formattedDate = formatDate(createdOn.toISOString(), 'yyyy-MM-dd', 'en-US');
-    const repositories: IRepo[] = [];
-    const params = new HttpParams().set('q', `created:>=${formattedDate}`)
+  getPopularRepos(dateCreated: Date): Observable<IQueryResult> {
+    const formattedDate = formatDate(dateCreated.toISOString(), 'yyyy-MM-dd', 'en-US');
+    const params = new HttpParams()
+    .set('q', `created:>=${formattedDate} is:public`)
     .set('sort', 'stars')
     .set('order', 'desc')
     .set('per_page', '8')
     .set('Authorization', 'token ' + this.OAuthToken);
-    this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).subscribe(res => {
-      res.items.forEach(repo => {
-        const newRepo: IRepo = {
-          id: repo.id,
-          name: repo.name,
-          owner: repo.owner.login,
-          description: repo.description,
-          watchers: repo.watchers_count,
-          stars: repo.stargazers_count
-        };
-        repositories.push(newRepo);
-      });
-    });
-    return of(repositories);
+    return this._http.get<IQueryResult>(this.baseUrl + 'search/repositories', {params: params});
   }
 
   // Query all repos based on the form in the search component
-  searchRepos(searchParams: ISearchQuery): Observable<IRepo[]> {
-    const repositories: IRepo[] = [];
-    let query = '';
-    // Construct the query based on the search parameters
-    if (!isNullOrUndefined(searchParams.title)) { query += `${searchParams.title} in:name `; }
-    if (!isNullOrUndefined(searchParams.language)) { query += `language:${searchParams.language} `; }
-    if (!isNullOrUndefined(searchParams.starThreshold)) { query += `stars:>=${searchParams.starThreshold} `; }
-    if (!isNullOrUndefined(searchParams.watcherThreshold)) { query += `watchers:>=${searchParams.watcherThreshold} `; }
-    if (!isNullOrUndefined(searchParams.issueThreshold)) { query += `good-first-issues:>=${searchParams.firstIssueThreshold} `; }
-    if (!isNullOrUndefined(searchParams.license)) { query += `license:${searchParams.license} `; }
-    const params = new HttpParams().set('q', `${query}`).set('per_page', '30').set('Authorization', 'token ' + this.OAuthToken);
-    this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).subscribe(res => {
-      res.items.forEach(repo => {
-        const newRepo: IRepo = {
-          id: repo.id,
-          name: repo.name,
-          owner: repo.owner.login,
-          description: repo.description,
-          watchers: repo.watchers_count,
-          stars: repo.stargazers_count
-        };
-        repositories.push(newRepo);
-      });
-    });
-    return of(repositories);
+  searchRepos(query?: string): Observable<IQueryResult> {
+    const params = new HttpParams().set('q', `${query}`).set('per_page', '28').set('Authorization', 'token ' + this.OAuthToken);
+    return this._http.get<IQueryResult>(this.baseUrl + 'search/repositories', {params: params});
   }
 
-  // I almost died while trying to figure this out
-  getRepoDetails(id: string): Observable<[IRepoResponse, ICommitResponse[], IIssueResponse[]]> {
+  // I almost died while trying to figure this out. Note: Refactor last...
+  getRepoDetails(id: string): Observable<[IRepo, ICommit[], IIssue[]]> {
     const params = new HttpParams().set('Authorization', 'token ' + this.OAuthToken);
-    return this._http.get<IRepoResponse>(this.baseUrl + 'repositories/' + id, {params: params}).pipe(
+    return this._http.get<IRepo>(this.baseUrl + 'repositories/' + id, {params: params}).pipe(
       mergeMap(repo => forkJoin([
-        this._http.get<IRepoResponse>(this.baseUrl + 'repositories/' + id, {params: params}),
-        this._http.get<ICommitResponse[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/commits`, {params: params}),
-        this._http.get<IIssueResponse[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/issues`, {params: params})]))
+        this._http.get<IRepo>(this.baseUrl + 'repositories/' + id, {params: params}),
+        this._http.get<ICommit[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/commits`, {params: params}),
+        this._http.get<IIssue[]>(this.baseUrl + `repos/${repo.owner.login}/${repo.name}/issues`, {params: params})]))
     );
-  }
-
-  // Fetch a list of repos to show on the browse component when there are no filters
-  getNewRepos(): Observable<IRepo[]> {
-    const repositories: IRepo[] = [];
-    const params = new HttpParams().set('q', 'is:public').set('per_page', '28').set('Authorization', 'token ' + this.OAuthToken);
-    this._http.get<ISearchResponse>(this.baseUrl + 'search/repositories', {params: params}).subscribe(res => {
-      res.items.forEach(repo => {
-        const newRepo: IRepo = {
-          id: repo.id,
-          name: repo.name,
-          owner: repo.owner.login,
-          description: repo.description,
-          watchers: repo.watchers_count,
-          stars: repo.stargazers_count
-        };
-        repositories.push(newRepo);
-      });
-    });
-    return of(repositories);
   }
 }

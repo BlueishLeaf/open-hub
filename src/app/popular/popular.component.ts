@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GithubService } from '../services/github.service';
-import { IRepo } from '../models/IRepo';
-import { TimePeriod } from './TimePeriod.enum';
+import { TimePeriod } from '../models/enums/TimePeriod.enum';
+import { IRepo } from '../models/domain/IRepo';
+import { Select, Store } from '@ngxs/store';
+import { RepoState } from '../state-management/states/repo.state';
+import { Observable } from 'rxjs';
+import { GetPopularRepos } from '../state-management/actions/repo.actions';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-popular',
@@ -11,13 +15,19 @@ import { TimePeriod } from './TimePeriod.enum';
 export class PopularComponent implements OnInit {
   TimePeriod = TimePeriod;
   currentDate = new Date();
+  @Select(RepoState.popular) repositories$: Observable<IRepo[]>;
   repositories: IRepo[];
 
-  constructor(private _repos: GithubService) { }
+  constructor(private _store: Store) {
+    this.repositories$.subscribe(repos => {
+      this.repositories = repos;
+    });
+  }
 
   ngOnInit() {
-    const targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 7);
-    this._repos.getPopularRepos(targetDate).subscribe(repos => this.repositories = repos);
+    if (isNullOrUndefined(this.repositories)) {
+      this.getPopular(TimePeriod.Week);
+    }
   }
 
   getPopular(timePeriod: TimePeriod) {
@@ -33,7 +43,7 @@ export class PopularComponent implements OnInit {
         targetDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), this.currentDate.getDate() - 30);
         break;
     }
-    this._repos.getPopularRepos(targetDate).subscribe(repos => this.repositories = repos);
+    this._store.dispatch(new GetPopularRepos(targetDate));
   }
 
 }

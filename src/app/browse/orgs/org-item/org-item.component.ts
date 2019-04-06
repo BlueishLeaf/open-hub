@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IOrg } from 'src/app/models/IOrg';
+import { IOrg } from 'src/app/models/domain/IOrg';
 
 @Component({
   selector: 'app-org-item',
@@ -13,7 +13,7 @@ export class OrgItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.orgLink = 'https://github.com/' + this.organization.title;
+    this.orgLink = 'https://github.com/' + this.organization.login;
   }
 
 }

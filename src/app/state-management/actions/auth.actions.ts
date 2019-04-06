@@ -1,22 +1,26 @@
-import { LoginProvider } from 'src/app/models/LoginProvider.enum';
+import { LoginProvider } from 'src/app/models/enums/LoginProvider.enum';
 
 export class EmailLogin {
-    static readonly type = '[Auth] Login with email and password';
+    static readonly type = '[Auth] Email Login';
     constructor(public payload: { email: string, password: string }) {}
 }
 
 export class OAuthLogin {
-    static readonly type = '[Auth] Login with OAuth provider';
-    constructor(public payload: { provider: LoginProvider }) {}
+    static readonly type = '[Auth] OAuth Login';
+    constructor(public payload: LoginProvider) {}
 }
 
 export class LoginSuccess {
-    static readonly type = '[Auth] Login successful';
+    static readonly type = '[Auth API] Login Successful';
     constructor(public payload: firebase.UserInfo) {}
 }
 
+export class LoginFailure {
+    static readonly type = '[Auth API] Login Failed';
+}
+
 export class Register {
-    static readonly type = '[Auth] Register with email';
+    static readonly type = '[Auth] Register';
     constructor(public payload: { email: string, password: string, displayName: string }) {}
 }
 

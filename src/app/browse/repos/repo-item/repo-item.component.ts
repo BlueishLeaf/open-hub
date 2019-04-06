@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IRepo } from 'src/app/models/IRepo';
+import { IRepo } from 'src/app/models/domain/IRepo';
 
 @Component({
   selector: 'app-repo-item',

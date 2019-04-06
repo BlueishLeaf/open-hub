@@ -1,31 +1,31 @@
-<div class="container-fluid" *ngIf="repoDetails!==undefined">
+<div class="container-fluid" *ngIf="repository!==undefined">
   <div id="repo" class="container">
     <div class="row">
       <div class="container">
-        <h1>{{repoDetails.name}}</h1>
-        <button class="btn btn-secondary" *ngIf="!isBookmarked" (click)="addToBookmarks()">Bookmark</button>
-        <button class="btn btn-secondary" *ngIf="isBookmarked" (click)="removeFromBookmarks()">Remove Bookmark</button>
-        <p>{{repoDetails.description}}</p>
+        <a [href]="'https://github.com/'+repository.owner.login+'/'+repository.name" target="_blank"><h1>{{repository.name}}</h1></a>
+        <button class="btn btn-secondary" *ngIf="!isBookmarked && user" (click)="addToBookmarks()">Bookmark</button>
+        <button class="btn btn-secondary" *ngIf="isBookmarked && user" (click)="removeFromBookmarks()">Remove Bookmark</button>
+        <p>{{repository.description}}</p>
         <div id="stats" class="row">
           <div class="col">
             <img src="../../../../assets/icons/commit.png">
-            <div>{{repoDetails.commits.length}}</div>
+            <div>{{commits.length}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/issue.png">
-            <div>{{repoDetails.issues.length}}</div>
+            <div>{{issues.length}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/fork.png">
-            <div>{{repoDetails.forks}}</div>
+            <div>{{repository.forks_count}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/star.png">
-            <div>{{repoDetails.stars}}</div>
+            <div>{{repository.stargazers_count}}</div>
           </div>
           <div class="col">
             <img src="../../../../assets/icons/watcher.png">
-            <div>{{repoDetails.watchers}}</div>
+            <div>{{repository.watchers_count}}</div>
           </div>
         </div>
       </div>
@@ -41,30 +41,30 @@
     </div>
   </div>
   <div class="row">
-    <div class="container" *ngIf="displayType===DisplayType.Commits && repoDetails">
-      <div id="commit" class="container" *ngFor="let commit of repoDetails.commits">
-        <a [href]="'https://github.com/' + repoDetails.owner + '/' + repoDetails.name + '/commit/' + commit.sha" target="_blank">
+    <div class="container" *ngIf="displayType===DisplayType.Commits && commits">
+      <div id="commit" class="container" *ngFor="let commit of commits">
+        <a [href]="'https://github.com/' + repository.owner.login + '/' + repository.name + '/commit/' + commit.sha" target="_blank">
           <div class="card">
             <div class="card-header">Commit</div>
             <div class="card-body">
               <blockquote class="blockquote mb-0">
-                <markdown>{{commit.message}}</markdown>
-                <footer class="blockquote-footer">Committed by <cite title="author">{{commit.author}}</cite></footer>
+                <markdown>{{commit.commit.message}}</markdown>
+                <footer class="blockquote-footer">Committed by <cite title="author">{{commit.commit.author.name}}</cite> on <cite title="timestamp">{{commit.commit.author.date | date}}</cite></footer>
               </blockquote>
             </div>
           </div>
         </a>
       </div>
     </div>
-    <div class="container" *ngIf="displayType===DisplayType.Issues && repoDetails">
-      <div id="issue" class="container" *ngFor="let issue of repoDetails.issues">
+    <div class="container" *ngIf="displayType===DisplayType.Issues && issues">
+      <div id="issue" class="container" *ngFor="let issue of issues">
         <a [href]="issueLink" target="_blank">
           <div class="card">
             <div class="card-header">Issue</div>
             <div class="card-body">
               <blockquote class="blockquote mb-0">
-                <markdown>{{issue.description}}</markdown>
-                <footer class="blockquote-footer">Issue opened by <cite title="author">{{issue.author}}</cite></footer>
+                <markdown>{{issue.body}}</markdown>
+                <footer class="blockquote-footer">Issue opened by <cite title="author">{{issue.user.login}}</cite></footer>
               </blockquote>
             </div>
           </div>
@@ -72,20 +72,20 @@
       </div>
     </div>
     <div class="container" *ngIf="displayType===DisplayType.Notes">
-      <div id="editCard" *ngIf="checkLogin()" class="card-body">
+      <div id="editCard" *ngIf="user" class="card-body">
         <h3>Leave a note for others to see!</h3>
         <textarea class="form-control" [(ngModel)]="currentNote" #fcontrol="ngModel" required></textarea>
         <p class="text-muted">This field supports <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet"
           target="_blank">Markdown</a></p>
         <button id="postBtn" class="btn btn-secondary btn-lg" (click)="addNote()" [disabled]="!fcontrol.valid">Post</button>
       </div>
-      <div id="note" class="container" *ngFor="let note of repoDetails.notes">
+      <div id="note" class="container" *ngFor="let note of notes">
         <div class="card">
-          <div class="card-header">Note<img *ngIf="checkLogin() && canDelete(note)" (click)="removeNote(note)" id="deleteIcon" src="../../../../assets/icons/garbage.png"/></div>
+          <div class="card-header">Note<img *ngIf="user && canDelete(note)" (click)="removeNote(note)" id="deleteIcon" src="../../../../assets/icons/garbage.png"/></div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <markdown>{{note.content}}</markdown>
-              <footer class="blockquote-footer">Note left by <cite title="author">{{note.authorEmail}}</cite></footer>
+              <footer class="blockquote-footer">Note left by <cite title="author">{{note.authorName}}</cite> on <cite title="timestamp">{{note.timestamp | date}}</cite></footer>
             </blockquote>
           </div>
         </div>

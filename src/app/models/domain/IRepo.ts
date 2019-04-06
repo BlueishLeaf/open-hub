@@ -1,13 +1,13 @@
 import { ILicense } from './ILicense';
-import { IUserResponse } from './IUserResponse';
+import { IGithubUser } from './IGithubUser';
 
-export interface IRepoResponse {
+export interface IRepo {
     id: number;
     node_id: string;
     name: string;
     full_name: string;
     private: boolean;
-    owner: IUserResponse;
+    owner: IGithubUser;
     html_url: string;
     description: string;
     fork: boolean;
