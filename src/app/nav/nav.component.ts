@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class NavComponent {
   @Select(AuthState.user) user$: Observable<firebase.UserInfo>;
   user: Partial<firebase.UserInfo>;
+  isCollapsed = true;
 
   constructor(private _store: Store) {
     this.user$.subscribe(user => this.user = user);

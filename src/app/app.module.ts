@@ -37,6 +37,7 @@ import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './state-management/states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { RepoState } from './state-management/states/repo.state';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
    declarations: [
@@ -60,6 +61,7 @@ import { RepoState } from './state-management/states/repo.state';
       FormsModule,
       ReactiveFormsModule,
       HttpClientModule,
+      NgbModule,
       AngularFireModule.initializeApp(environment.firebase),
       MarkdownModule.forRoot(),
       NgxsModule.forRoot([AuthState, RepoState], {developmentMode: !environment.production}),

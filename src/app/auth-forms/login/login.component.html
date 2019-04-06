@@ -1,39 +1,35 @@
-<div class="container-fluid">
-  <div class="container">
-    <div id="formWrapper">
-      <form [formGroup]="loginForm">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" class="form-control" id="email" placeholder="johnsmith@example.com" formControlName="email">
-          <div class="error" *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
-            Please enter your email.
-          </div>
+<div class="container">
+  <div id="formWrapper">
+    <form [formGroup]="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" placeholder="johnsmith@example.com" formControlName="email">
+        <div class="error" *ngIf="!loginForm.controls['email'].valid && loginForm.controls['email'].touched">
+          Please enter your email.
         </div>
-        <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" class="form-control" id="confirmPassword" placeholder="Password" formControlName="password">
-          <div class="error" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
-            Please enter your password.
-          </div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Password" formControlName="password">
+        <div class="error" *ngIf="!loginForm.controls['password'].valid && loginForm.controls['password'].touched">
+          Please enter your password.
         </div>
-        <div id="buttonWrapper">
-          <button type="submit" class="btn btn-secondary btn-lg" [disabled]="loginForm.invalid" (click)="emailLogin()">Login</button>
-        </div>
-        <div>
-          <h3>Or login with one of the following...</h3>
-        </div>
-        <div id="logos" class="row">
-          <div class="col">
-            <img class="logo" src="../../../assets/logos/google.png" (click)="oAuthLogin(LoginProvider.Google)">
-          </div>
-          <div class="col">
-            <img class="logo" src="../../../assets/logos/github.png" (click)="oAuthLogin(LoginProvider.GitHub)">
-          </div>
-          <div class="col">
-            <img class="logo" src="../../../assets/logos/facebook.png" (click)="oAuthLogin(LoginProvider.Facebook)">
-          </div>
-        </div>
-      </form>
+      </div>
+      <div id="buttonWrapper">
+        <button type="submit" class="btn btn-secondary btn-lg" [disabled]="loginForm.invalid" (click)="emailLogin()">Login</button>
+      </div>
+    </form>
+    <div id="socialButtons">
+      <a class="btn btn-block btn-social btn-google" (click)="oAuthLogin(LoginProvider.Google)">
+        <span class="fab fa-google"></span> Sign in with Google
+      </a>
+      <a class="btn btn-block btn-social btn-github" (click)="oAuthLogin(LoginProvider.GitHub)">
+        <span class="fab fa-github"></span> Sign in with GitHub
+      </a>
+      <a class="btn btn-block btn-social btn-facebook" (click)="oAuthLogin(LoginProvider.Facebook)">
+        <span class="fab fa-facebook"></span> Sign in with Facebook
+      </a>
     </div>
   </div>
 </div>
+

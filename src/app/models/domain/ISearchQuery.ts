@@ -1,9 +1,9 @@
 export interface ISearchQuery {
-    title?: string;
-    language?: string;
-    starThreshold?: number;
-    watcherThreshold?: number;
-    issueThreshold?: number;
-    firstIssueThreshold?: number;
-    license?: string;
+    name: string;
+    language: string;
+    license: string;
+    minStars: number;
+    maxStars: number;
+    minFirstIssues: number;
+    maxFirstIssues: number;
 }

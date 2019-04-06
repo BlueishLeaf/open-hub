@@ -1,20 +1,18 @@
 <div class="card" [routerLink]="['/repo/', repository.id]">
-    <div class="card-body">
-      <div id="title" class="row">
-        <h5>{{repository.name}}</h5>
-      </div>
-      <div class="row">
-        <p class="card-text">{{repository.description}}</p>
-      </div>
-      <div id="stats" class="row">
-        <div class="col">
-          <img src="../../../../assets/icons/watcher.png">
-          <span>{{repository.watchers_count}}</span>
-        </div>
-        <div class="col">
-          <img src="../../../../assets/icons/star.png">
-          <span>{{repository.stargazers_count}}</span>
-        </div>
-      </div>
+  <div class="card-header">
+    {{repository.name}}
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{repository.description | slice:-90}}</p>
+  </div>
+  <div id="stats" class="card-footer row">
+    <div class="col">
+      <i class="fas fa-star"></i>
+      <span>{{repository.stargazers_count}}</span>
     </div>
+    <div class="col">
+      <i class="fas fa-code-branch"></i>
+      <span>{{repository.forks_count}}</span>
+    </div>
+  </div>
 </div>

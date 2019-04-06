@@ -1,45 +1,48 @@
-<div class="container">
+<div class="container-fluid">
   <h2>Browsing Options</h2>
   <div id="formWrapper">
     <form [formGroup]="searchForm">
-      <div class="form-group">
-        <label for="rName">Repo Name</label>
-        <input type="text" class="form-control" id="rName" formControlName="rName">
-      </div>
-      <div class="form-group">
-        <label for="language">Language</label>
-        <input type="text" class="form-control" id="language" formControlName="language">
-      </div>
-      <div class="form-group">
-        <label for="stars">No of Stars</label>
-        <div>
-          <span>At least</span>
-          <input type="number" class="form-control" id="stars" formControlName="stars">
-          <span>stars</span>
+      <div class="input-group">
+        <div class="input-group-prepend" placement="top" ngbTooltip="Repository Name">
+          <label for="name" class="input-group-text icon"><i class="fab fa-github"></i></label>
         </div>
+        <input id="name" type="text" class="form-control" formControlName="name" placeholder="Repository Name" aria-label="name" aria-describedby="name">
       </div>
-      <div class="form-group">
-        <label for="watchers">No of Watchers</label>
-        <div>
-          <span>At least</span>
-          <input type="number" class="form-control" id="watchers" formControlName="watchers">
-          <span>watchers</span>
+      <div class="input-group">
+        <div class="input-group-prepend" placement="top" ngbTooltip="Primary Language">
+          <label for="language" class="input-group-text icon"><i class="fas fa-code"></i></label>
         </div>
+        <input id="language" type="text" class="form-control" formControlName="language" placeholder="Primary Language" aria-label="language" aria-describedby="language">
       </div>
-      <div class="form-group">
-        <label for="firstIssues">No of good first issues</label>
-        <div>
-          <span>At least</span>
-          <input type="number" class="form-control" id="firstIssues" formControlName="firstIssues">
-          <span>issues</span>
+      <div class="input-group">
+        <div class="input-group-prepend" placement="top" ngbTooltip="Repository License">
+          <label class="input-group-text icon" for="licenses"><i class="fas fa-balance-scale"></i></label>
         </div>
+        <select class="custom-select" formControlName="license" id="licenses">
+          <option selected>Select License...</option>
+          <option *ngFor="let license of licenses" [value]="license">{{license}}</option>
+        </select>
       </div>
-      <div class="form-group">
-        <label for="license">License</label>
-        <input type="text" class="form-control" id="license" formControlName="license">
+      <div class="input-group">
+        <div class="input-group-prepend" placement="top" ngbTooltip="Number of Stars">
+          <span class="input-group-text icon" id="stars"><i class="fas fa-star"></i></span>
+          <label for="minStars" class="input-group-text">Min</label>
+        </div>
+        <input id="minStars" type="number" min="0" formControlName="minStars" placeholder="0" class="form-control">
+        <label for="maxStars" class="input-group-text middle">Max</label>
+        <input id="maxStars" type="number" min="0" formControlName="maxStars" placeholder="N/A" class="form-control">
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend" placement="top" ngbTooltip="Number of Good First Issues">
+          <span class="input-group-text icon" id="firstIssues"><i class="fas fa-exclamation-circle"></i></span>
+          <label for="minFirstIssues" class="input-group-text">Min</label>
+        </div>
+        <input type="number" id="minFirstIssues" min="0" formControlName="minFirstIssues" placeholder="0" class="form-control">
+        <label for="maxFirstIssues" class="input-group-text middle">Max</label>
+        <input id="maxFirstIssues" type="number" min="0" formControlName="maxFirstIssues" placeholder="N/A" class="form-control">
       </div>
       <div id="buttonWrapper">
-        <button type="submit" class="btn btn-secondary btn-lg" (click)="search()">Search</button>
+        <button type="submit" class="btn btn-secondary btn-lg" [disabled]="searchForm.invalid" (click)="search()">Search</button>
       </div>
     </form>
   </div>

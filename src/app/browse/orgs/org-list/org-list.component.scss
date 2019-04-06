@@ -1,14 +1,12 @@
 @import "../../../../theme.scss";
 
-.container {
-    width: 70%;
-}
-
-app-org-item {
-    margin: 10px;
-}
-
 .container-fluid {
-    margin-top: 5%;
-    background-color: $background-color
+    width: 70%;
+    margin-bottom: 3em;
+}
+
+@media only screen and (max-width: 1300px) {
+    .container-fluid {
+        width: 100%;
+    }
 }

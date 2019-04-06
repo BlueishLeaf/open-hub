@@ -1,5 +1,3 @@
-<div class="container-fluid">
-  <div class="container" *ngFor="let org of organizations">
-    <app-org-item [organization]="org"></app-org-item>
-  </div>
+<div class="container-fluid" *ngFor="let org of organizations">
+  <app-org-item [organization]="org"></app-org-item>
 </div>

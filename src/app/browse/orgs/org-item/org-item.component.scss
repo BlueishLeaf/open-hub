@@ -8,8 +8,8 @@ img {
 
 .card {
     padding: 20px;
-    border-radius: 30px;
-    background-color: $secondary-color;
+    border-radius: 5px;
+    background-color: $foreground-color;
 }
 
 #card-body {
@@ -21,6 +21,20 @@ a {
     text-decoration: none;
 }
 
-.card:hover {
-    background-color: $primary-color;
+p {
+    color: $secondary-color;
+}
+
+h1 {
+    color: $primary-color;
+}
+
+.card:hover > div div div h1 {
+    color: $background-color;
+}
+
+@media only screen and (max-width: 1300px) {
+    img {
+        display: none;
+    }
 }

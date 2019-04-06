@@ -3,11 +3,12 @@
 .container {
     background-color: $background-color;
     width: 40%;
-    margin-top: 5%;
 }
 
-.container-fluid {
-    background-color: $background-color;
+@media only screen and (max-width: 1300px) {
+    .container {
+        width: 100%;
+    }
 }
 
 label, input {
@@ -16,8 +17,8 @@ label, input {
 
 #formWrapper {
     padding: 50px;
-    border-radius: 30px;
     background-color: $foreground-color;
+    border-radius: 5px;
 }
 
 button {
@@ -48,15 +49,18 @@ h3{
     text-align: center;
 }
 
-.logo {
-    width: 64px;
-    height: 64px;
+#socialButtons {
+    padding-top: 15px;
 }
 
-.logo:hover {
+span {
+    color: $secondary-color;
+}
+
+div a {
+    color: $secondary-color;
+}
+
+.btn-social:hover {
     cursor: pointer;
-}
-
-#logos {
-    text-align: center;
 }

@@ -33,14 +33,30 @@ export class BrowseComponent implements OnInit {
     if (isNullOrUndefined(event)) {
       query = 'is:public';
     } else {
-      if (!isNullOrUndefined(event.title)) { query += `${event.title} in:name `; }
+      if (!isNullOrUndefined(event.name)) { query += `${event.name} in:name `; }
       if (!isNullOrUndefined(event.language)) { query += `language:${event.language} `; }
-      if (!isNullOrUndefined(event.starThreshold)) { query += `stars:>=${event.starThreshold} `; }
-      if (!isNullOrUndefined(event.watcherThreshold)) { query += `watchers:>=${event.watcherThreshold} `; }
-      if (!isNullOrUndefined(event.issueThreshold)) { query += `good-first-issues:>=${event.firstIssueThreshold} `; }
       if (!isNullOrUndefined(event.license)) { query += `license:${event.license} `; }
+      if (!isNullOrUndefined(event.minStars || event.maxStars)) {
+        if (!isNullOrUndefined(event.minStars && event.maxStars)) {
+          query += `stars:${event.minStars}..${event.maxStars} `;
+        } else if (!isNullOrUndefined(event.minStars) && isNullOrUndefined(event.maxStars)) {
+          query += `stars:>=${event.minStars} `;
+        } else if (!isNullOrUndefined(event.maxStars) && isNullOrUndefined(event.minStars)) {
+          query += `stars:<=${event.maxStars} `;
+        }
+      }
+      if (!isNullOrUndefined(event.minFirstIssues || event.maxFirstIssues)) {
+        if (!isNullOrUndefined(event.minFirstIssues && event.maxFirstIssues)) {
+          query += `good-first-issues:${event.minFirstIssues}..${event.maxFirstIssues} `;
+        } else if (!isNullOrUndefined(event.minFirstIssues) && isNullOrUndefined(event.maxFirstIssues)) {
+          query += `good-first-issues:>=${event.minFirstIssues} `;
+        } else if (!isNullOrUndefined(event.maxFirstIssues) && isNullOrUndefined(event.minFirstIssues)) {
+          query += `good-first-issues:<=${event.maxFirstIssues} `;
+        }
+      }
       query += 'is:public';
     }
+    console.log(query);
     this._store.dispatch(new SearchRepos(query));
   }
 

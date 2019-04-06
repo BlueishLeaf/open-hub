@@ -9,6 +9,22 @@ nav {
     font-weight: bold;
 }
 
+.navbar-brand:hover {
+    color: $secondary-color;
+}
+
 .navbar .nav-item a {
     color: $secondary-color;
+}
+
+a {
+    color: $secondary-color;
+}
+
+.navbar .nav-item a:hover {
+    color: $primary-color;
+}
+
+i {
+    color: $primary-color;
 }

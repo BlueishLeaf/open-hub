@@ -1,19 +1,35 @@
 @import "../../../../theme.scss";
 
 #repo {
-    margin-top: 5%;
-    background-color: $secondary-color;
-    border-radius: 30px;
+    background-color: $foreground-color;
+    border-radius: 5px;
     text-align: center;
     padding:20px;
 }
 
-h1:hover {
+h1 {
     color: $primary-color;
 }
 
-.container-fluid {
-    background-color: $background-color;
+.col div {
+    color: $primary-color;
+    padding-top: 10px;
+}
+
+#repo:hover > div div a h1 {
+    color: $background-color;
+}
+
+#repo:hover {
+    cursor: pointer;
+}
+
+p {
+    color: $secondary-color;
+}
+
+i {
+    color: $primary-color;
 }
 
 #buttons {
@@ -22,7 +38,7 @@ h1:hover {
 }
 
 .btn-group {
-    border-radius: 30px;
+    border-radius: 5px;
 }
 
 button {
@@ -35,6 +51,11 @@ button:disabled {
     background-color: $foreground-color;
 }
 
+button:hover {
+    color: $foreground-color;
+    background-color: $primary-color;
+}
+
 #editCard {
     text-align: center;
 }
@@ -43,20 +64,14 @@ button:disabled {
     width: 10em;
 }
 
-img {
-    width:50px;
-    height:50px;
-}
-
 .col {
     text-align: center;
 }
 
 #commit {
     background-color: $background-color;
-    border-radius: 30px;
+    border-radius: 5px;
     margin-bottom: 20px;
-    border-radius: 30px;
 }
 
 h3 {
@@ -64,30 +79,29 @@ h3 {
 }
 
 textarea {
-    border-radius: 20px;
+    border-radius: 5px;
 }
 
 #issue {
     background-color: $background-color;
-    border-radius: 30px;
+    border-radius: 5px;
     margin-bottom: 20px;
-    border-radius: 30px;
 }
 
 #note {
     background-color: $background-color;
     margin-top: 20px;
     margin-bottom: 20px;
-    border-radius: 30px;
+    border-radius: 5px;
 }
 
 .card {
-    background-color: $secondary-color;
-    border-radius: 30px;
+    background-color: $foreground-color;
+    border-radius: 5px;
 }
 
-.card:hover {
-    background-color: $primary-color;
+.card:hover > .card-body {
+    color: $primary-color;
     cursor: pointer;
 }
 
@@ -99,8 +113,23 @@ a:hover {
     text-decoration: none;
 }
 
-#deleteIcon {
-    width: 20px;
-    height: 20px;
-    margin:10px;
+.card-header {
+    color: $primary-color;
+}
+
+.card-body {
+    color: $secondary-color;
+}
+
+footer {
+    color: $primary-color;
+}
+
+i:hover {
+    color: $secondary-color;
+    cursor: pointer;
+}
+
+i {
+    padding-left: 20px;
 }

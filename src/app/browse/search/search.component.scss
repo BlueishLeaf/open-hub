@@ -1,8 +1,8 @@
 @import "../../../theme.scss";
 
-.container {
+.container-fluid {
     background-color: $foreground-color;
-    border-radius: 30px;
+    border-radius: 5px;
     padding: 30px;
 }
 
@@ -14,9 +14,46 @@ span {
     color: $secondary-color;
 }
 
+.middle {
+    border-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    background-color: $background-color;
+    border-color: $background-color;
+    color: $primary-color;
+}
+
+.input-group-text {
+    background-color: $background-color;
+    border-color: $background-color;
+    color: $primary-color;
+}
+
+.icon {
+    width: 40px;
+    background-color: $background-color;
+    border-color: $background-color;
+    text-align: center;
+}
+
+.custom-select {
+    border-color: $background-color;
+}
+
+.form-control {
+    border-color: $background-color;
+}
+
+i {
+    color: $primary-color;
+    display: inline-block;
+    margin: 0 auto;
+}
+
 h2 {
     color: $primary-color;
     text-align: center;
+    margin-bottom: 1em;
 }
 
 button {
@@ -34,4 +71,8 @@ button:hover {
 
 #buttonWrapper {
     text-align: center;
+}
+
+.input-group {
+    margin-bottom: 1em;
 }

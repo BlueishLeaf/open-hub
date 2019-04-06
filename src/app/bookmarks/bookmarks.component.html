@@ -1,14 +1,13 @@
-<div class="container-fluid">
-  <div class="container">
-    <div class="jumbotron jumbotron-fluid row">
-      <div class="container" *ngIf="repositories && userDetails">
-        <h1 class="display-4">Welcome back, {{user.displayName || user.email}}</h1>
-        <p class="lead" *ngIf="repositories.length > 0">So far, you have bookmarked {{repositories.length}} repositories!</p>
-        <p class="lead" *ngIf="repositories.length === 0">You have no bookmarks yet, get out there and explore!</p>
-      </div>
-    </div>
-    <div class="row" *ngIf="repositories">
-      <app-repo-list [repositories]="repositories"></app-repo-list>
+<div class="container">
+  <div class="jumbotron jumbotron-fluid row">
+    <div class="container" *ngIf="repositories && userDetails">
+      <h1 class="display-4">Welcome back, {{user.displayName || user.email}}</h1>
+      <p class="lead" *ngIf="repositories.length > 0">So far, you have bookmarked {{repositories.length}} repositories!</p>
+      <p class="lead" *ngIf="repositories.length === 0">You have no bookmarks yet, get out there and explore!</p>
     </div>
   </div>
+  <div class="row" *ngIf="repositories">
+    <app-repo-list [repositories]="repositories"></app-repo-list>
+  </div>
 </div>
+

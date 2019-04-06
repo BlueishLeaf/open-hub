@@ -1,11 +1,5 @@
 @import "../../theme.scss";
 
-.container-fluid {
-    margin: 0;
-    padding: 0;
-    background-color: $background-color;
-}
-
 h1 {
     font-size: 50px;
 }
@@ -17,6 +11,10 @@ h3 {
 .fixed.row {
     height: 10em;
     text-align: center;
+}
+
+.first.row {
+    height: 7em;
 }
 
 .flex.row {
