@@ -36,7 +36,7 @@ describe('BookmarksComponent', () => {
   const fireAuthMock = {
   };
 
-  let store: Store;
+  // let store: Store;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -49,8 +49,8 @@ describe('BookmarksComponent', () => {
         { provide: AngularFireAuth, useValue: fireAuthMock },
       ]
     }).compileComponents();
-    store = TestBed.get(Store);
-    store.reset({AuthState: sampleAuthState});
+    // store = TestBed.get(Store);
+    // store.reset({AuthState: sampleAuthState});
   }));
 
   beforeEach(() => {

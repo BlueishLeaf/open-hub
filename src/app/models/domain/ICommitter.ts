@@ -1,5 +1,4 @@
-export interface ICommitter
-{
+export interface ICommitter {
     date: Date;
     email: string;
     name: string;

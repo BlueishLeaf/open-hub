@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store, Select } from '@ngxs/store';
 import { Logout } from '../state-management/actions/auth.actions';
 import { AuthState } from '../state-management/states/auth.state';
@@ -10,14 +10,14 @@ import { Router } from '@angular/router';
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss']
 })
-export class NavComponent {
+export class NavComponent implements OnInit {
   @Select(AuthState.user) user$: Observable<firebase.UserInfo>;
   user: Partial<firebase.UserInfo>;
   isCollapsed = true;
 
-  constructor(private _store: Store, private _router: Router) {
-    this.user$.subscribe(user => this.user = user);
-  }
+  constructor(private _store: Store, private _router: Router) {}
+
+  ngOnInit = () => this.user$.subscribe(user => this.user = user);
 
   logout() {
     this._router.navigate(['']);

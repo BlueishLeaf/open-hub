@@ -18,13 +18,10 @@ export class PopularComponent implements OnInit {
   @Select(RepoState.popular) repositories$: Observable<IRepo[]>;
   repositories: IRepo[];
 
-  constructor(private _store: Store) {
-    this.repositories$.subscribe(repos => {
-      this.repositories = repos;
-    });
-  }
+  constructor(private _store: Store) {}
 
   ngOnInit() {
+    this.repositories$.subscribe(repos => this.repositories = repos);
     if (isNullOrUndefined(this.repositories)) {
       this.getPopular(TimePeriod.Week);
     }

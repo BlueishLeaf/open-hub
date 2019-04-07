@@ -2,11 +2,18 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { AuthService } from './auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+
+const fireAuthMock = {
+};
 
 describe('Service: Auth', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthService]
+      providers: [
+        AuthService,
+        { provide: AngularFireAuth, useValue: fireAuthMock },
+      ]
     });
   });
 

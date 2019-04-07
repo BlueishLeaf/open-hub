@@ -30,12 +30,11 @@ export class RepoDetailComponent implements OnInit {
   isBookmarked = false;
   isModerator = false;
 
-  constructor(private _route: ActivatedRoute, private _repos: GithubService, private _db: FirestoreService) {
-    this.user$.subscribe(user => this.user = user);
-  }
+  constructor(private _route: ActivatedRoute, private _repos: GithubService, private _db: FirestoreService) {}
 
   ngOnInit() {
-    const id = this._route.snapshot.paramMap.get('id');
+    this.user$.subscribe(user => this.user = user);
+    const id = this._route.snapshot.params['id'];
     this._repos.getRepoDetails(id).subscribe(res => {
       this.repository = res[0];
       this.commits = res[1];
