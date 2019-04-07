@@ -4,7 +4,6 @@ import { Store, Select } from '@ngxs/store';
 import { Register } from 'src/app/state-management/actions/auth.actions';
 import { AuthState } from 'src/app/state-management/states/auth.state';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -23,11 +22,6 @@ export class RegisterComponent implements OnInit {
   constructor(private _fb: FormBuilder, private _store: Store) { }
 
   ngOnInit() {
-    // this.user$.subscribe(user => {
-    //   if (user) {
-    //     this._router.navigate(['']);
-    //   }
-    // });
     this.registerForm = this._fb.group({
       fName: ['', [Validators.required, Validators.maxLength(30)]],
       lName: ['', [Validators.required, Validators.maxLength(30)]],

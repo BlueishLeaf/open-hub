@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { EmailLogin, OAuthLogin } from 'src/app/state-management/actions/auth.actions';
-import { LoginProvider } from 'src/app/models/enums/LoginProvider.enum';
-import { Router } from '@angular/router';
+import { LoginProvider } from 'src/app/_models/_enums/LoginProvider.enum';
 
 @Component({
   selector: 'app-login',

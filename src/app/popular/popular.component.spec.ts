@@ -1,7 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PopularComponent } from './popular.component';
-import { IRepo } from '../models/domain/IRepo';
+import { IRepo } from '../_models/_domain/IRepo';
 import { RepoStateModel, RepoState } from '../state-management/states/repo.state';
 import { of } from 'rxjs';
 import { RepoListComponent } from '../browse/repos/repo-list/repo-list.component';

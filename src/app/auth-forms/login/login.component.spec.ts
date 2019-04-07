@@ -3,7 +3,6 @@ import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store, NgxsModule } from '@ngxs/store';
 import { AuthState } from 'src/app/state-management/states/auth.state';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { of } from 'rxjs';
@@ -17,13 +16,6 @@ describe('LoginComponent', () => {
     auth: of(null)
   };
 
-  // const routerMock = {
-  //   navigate: jasmine.createSpy('navigate')
-  // };
-  // const authMock = {
-  //   emailLogin: jasmine.createSpy('emailLogin')
-  // };
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -32,9 +24,7 @@ describe('LoginComponent', () => {
       ],
       declarations: [ LoginComponent ],
       providers: [
-        { provide: AngularFireAuth, useValue: fireAuthMock },
-        // { provide: Router, useValue: routerMock },
-        // { provide: AuthService, useValue: authMock }
+        { provide: AngularFireAuth, useValue: fireAuthMock }
       ]
     }).compileComponents();
     store = TestBed.get(Store);

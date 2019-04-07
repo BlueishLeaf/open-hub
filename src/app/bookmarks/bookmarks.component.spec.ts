@@ -4,8 +4,8 @@ import { RepoListComponent } from '../browse/repos/repo-list/repo-list.component
 import { RepoItemComponent } from '../browse/repos/repo-item/repo-item.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
-import { IUser } from '../models/domain/IUser';
-import { NgxsModule, Store } from '@ngxs/store';
+import { IUser } from '../_models/_domain/IUser';
+import { NgxsModule } from '@ngxs/store';
 import { AuthState, AuthStateModel } from '../state-management/states/auth.state';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { of } from 'rxjs';
@@ -36,7 +36,6 @@ describe('BookmarksComponent', () => {
   const fireAuthMock = {
   };
 
-  // let store: Store;
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -49,8 +48,6 @@ describe('BookmarksComponent', () => {
         { provide: AngularFireAuth, useValue: fireAuthMock },
       ]
     }).compileComponents();
-    // store = TestBed.get(Store);
-    // store.reset({AuthState: sampleAuthState});
   }));
 
   beforeEach(() => {

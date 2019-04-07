@@ -1,4 +1,4 @@
-import { LoginProvider } from 'src/app/models/enums/LoginProvider.enum';
+import { LoginProvider } from 'src/app/_models/_enums/LoginProvider.enum';
 
 export class EmailLogin {
     static readonly type = '[Auth] Email Login';

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IOrg } from 'src/app/models/domain/IOrg';
+import { IOrg } from 'src/app/_models/_domain/IOrg';
 
 @Component({
   selector: 'app-org-item',

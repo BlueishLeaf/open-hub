@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GithubService } from 'src/app/services/github.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
-import { INote } from 'src/app/models/domain/INote';
+import { GithubService } from 'src/app/_services/github.service';
+import { FirestoreService } from 'src/app/_services/firestore.service';
+import { INote } from 'src/app/_models/_domain/INote';
 import { isNullOrUndefined } from 'util';
 import { Select } from '@ngxs/store';
 import { AuthState } from 'src/app/state-management/states/auth.state';
-import { DisplayType } from '../../../models/enums/DisplayType.enum';
+import { DisplayType } from '../../../_models/_enums/DisplayType.enum';
 import { Observable } from 'rxjs';
-import { ICommit } from 'src/app/models/domain/ICommit';
-import { IIssue } from 'src/app/models/domain/IIssue';
-import { IRepo } from 'src/app/models/domain/IRepo';
+import { ICommit } from 'src/app/_models/_domain/ICommit';
+import { IIssue } from 'src/app/_models/_domain/IIssue';
+import { IRepo } from 'src/app/_models/_domain/IRepo';
 
 @Component({
   selector: 'app-repo-detail',

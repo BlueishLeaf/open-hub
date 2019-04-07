@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ISearchQuery } from '../models/domain/ISearchQuery';
+import { ISearchQuery } from '../_models/_domain/ISearchQuery';
 import { Store, Select } from '@ngxs/store';
 import { RepoState } from '../state-management/states/repo.state';
 import { SearchRepos } from '../state-management/actions/repo.actions';
 import { Observable } from 'rxjs';
-import { IRepo } from '../models/domain/IRepo';
+import { IRepo } from '../_models/_domain/IRepo';
 import { isNullOrUndefined } from 'util';
 
 @Component({

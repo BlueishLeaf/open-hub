@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
-import { LoginProvider } from '../models/enums/LoginProvider.enum';
+import { LoginProvider } from '../_models/_enums/LoginProvider.enum';
 
 @Injectable({
   providedIn: 'root'

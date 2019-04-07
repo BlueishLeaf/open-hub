@@ -1,11 +1,7 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
 import { RepoListComponent } from './repo-list.component';
 import { RepoItemComponent } from '../repo-item/repo-item.component';
-import { IRepo } from 'src/app/models/domain/IRepo';
+import { IRepo } from 'src/app/_models/_domain/IRepo';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RepoListComponent', () => {

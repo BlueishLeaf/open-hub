@@ -17,13 +17,13 @@ import { RepoDetailComponent } from './browse/repos/repo-detail/repo-detail.comp
 import { RepoListComponent } from './browse/repos/repo-list/repo-list.component';
 import { RepoItemComponent } from './browse/repos/repo-item/repo-item.component';
 import { SearchComponent } from './browse/search/search.component';
-import { AuthService } from './services/auth.service';
-import { GithubService } from './services/github.service';
+import { AuthService } from './_services/auth.service';
+import { GithubService } from './_services/github.service';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { PopularComponent } from './popular/popular.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuardService } from './_services/auth-guard.service';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from './state-management/states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';

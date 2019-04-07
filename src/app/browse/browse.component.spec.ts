@@ -8,7 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgxsModule, Store } from '@ngxs/store';
 import { RepoState, RepoStateModel } from '../state-management/states/repo.state';
 import { HttpClientModule } from '@angular/common/http';
-import { IRepo } from '../models/domain/IRepo';
+import { IRepo } from '../_models/_domain/IRepo';
 import { of } from 'rxjs';
 
 describe('BrowseComponent', () => {
@@ -62,7 +62,6 @@ describe('BrowseComponent', () => {
         RepoItemComponent
        ],
        providers: [
-        // { provide: GithubService, useValue: githubMock },
        ]
     }).compileComponents();
     store = TestBed.get(Store);

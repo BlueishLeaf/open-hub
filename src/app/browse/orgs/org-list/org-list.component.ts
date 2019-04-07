@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IOrg } from 'src/app/models/domain/IOrg';
+import { IOrg } from 'src/app/_models/_domain/IOrg';
 import { Store, Select } from '@ngxs/store';
 import { GetLatestOrgs } from 'src/app/state-management/actions/repo.actions';
 import { RepoState } from 'src/app/state-management/states/repo.state';

@@ -1,10 +1,10 @@
 import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { GithubService } from 'src/app/services/github.service';
+import { GithubService } from 'src/app/_services/github.service';
 // tslint:disable-next-line:max-line-length
 import { SearchRepos, SearchReposSuccess, SearchReposFailure, GetPopularRepos, GetLatestOrgs, GetPopularReposSuccess, GetPopularReposFailure, GetLatestOrgsSuccess, GetLatestOrgsFailure } from '../actions/repo.actions';
-import { IOrg } from 'src/app/models/domain/IOrg';
+import { IOrg } from 'src/app/_models/_domain/IOrg';
 import { isNullOrUndefined } from 'util';
-import { IRepo } from 'src/app/models/domain/IRepo';
+import { IRepo } from 'src/app/_models/_domain/IRepo';
 
 export interface RepoStateModel {
     searched?: IRepo[];

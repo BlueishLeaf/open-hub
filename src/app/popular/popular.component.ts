@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TimePeriod } from '../models/enums/TimePeriod.enum';
-import { IRepo } from '../models/domain/IRepo';
+import { TimePeriod } from '../_models/_enums/TimePeriod.enum';
+import { IRepo } from '../_models/_domain/IRepo';
 import { Select, Store } from '@ngxs/store';
 import { RepoState } from '../state-management/states/repo.state';
 import { Observable } from 'rxjs';

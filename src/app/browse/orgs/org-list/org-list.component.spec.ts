@@ -1,12 +1,8 @@
-/* tslint:disable:no-unused-variable */
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-
 import { OrgListComponent } from './org-list.component';
 import { NgxsModule, Store } from '@ngxs/store';
 import { RepoState, RepoStateModel } from 'src/app/state-management/states/repo.state';
-import { IOrg } from 'src/app/models/domain/IOrg';
+import { IOrg } from 'src/app/_models/_domain/IOrg';
 import { of } from 'rxjs';
 import { OrgItemComponent } from '../org-item/org-item.component';
 import { HttpClientModule } from '@angular/common/http';

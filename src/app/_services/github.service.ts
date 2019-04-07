@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, forkJoin } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { IOrg } from '../models/domain/IOrg';
-import { IQueryResult } from '../models/domain/IQueryResult';
+import { IOrg } from '../_models/_domain/IOrg';
+import { IQueryResult } from '../_models/_domain/IQueryResult';
 import { formatDate } from '@angular/common';
-import { IRepo } from '../models/domain/IRepo';
-import { ICommit } from '../models/domain/ICommit';
-import { IIssue } from '../models/domain/IIssue';
+import { IRepo } from '../_models/_domain/IRepo';
+import { ICommit } from '../_models/_domain/ICommit';
+import { IIssue } from '../_models/_domain/IIssue';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

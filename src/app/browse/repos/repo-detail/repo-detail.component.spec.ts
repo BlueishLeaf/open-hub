@@ -1,18 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
 import { RepoDetailComponent } from './repo-detail.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MarkdownModule, MarkdownComponent } from 'ngx-markdown';
-import { GithubService } from 'src/app/services/github.service';
-import { FirestoreService } from 'src/app/services/firestore.service';
+import { MarkdownModule } from 'ngx-markdown';
+import { GithubService } from 'src/app/_services/github.service';
+import { FirestoreService } from 'src/app/_services/firestore.service';
 import { of } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IRepo } from 'src/app/models/domain/IRepo';
-import { ICommit } from 'src/app/models/domain/ICommit';
-import { IIssue } from 'src/app/models/domain/IIssue';
-import { IUser } from 'src/app/models/domain/IUser';
+import { IRepo } from 'src/app/_models/_domain/IRepo';
+import { ICommit } from 'src/app/_models/_domain/ICommit';
+import { IIssue } from 'src/app/_models/_domain/IIssue';
+import { IUser } from 'src/app/_models/_domain/IUser';
 
 describe('RepoDetailComponent', () => {
   let component: RepoDetailComponent;

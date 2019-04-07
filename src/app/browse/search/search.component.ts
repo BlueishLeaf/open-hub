@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ISearchQuery } from 'src/app/models/domain/ISearchQuery';
+import { ISearchQuery } from 'src/app/_models/_domain/ISearchQuery';
 
 @Component({
   selector: 'app-search',

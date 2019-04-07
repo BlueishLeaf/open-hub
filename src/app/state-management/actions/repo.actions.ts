@@ -1,5 +1,5 @@
-import { IOrg } from 'src/app/models/domain/IOrg';
-import { IRepo } from 'src/app/models/domain/IRepo';
+import { IOrg } from 'src/app/_models/_domain/IOrg';
+import { IRepo } from 'src/app/_models/_domain/IRepo';
 
 export class SearchRepos {
     static readonly type = '[Repo] Search Repos';
