@@ -16,13 +16,12 @@ export class BrowseComponent implements OnInit {
   @Select(RepoState.searched) repositories$: Observable<IRepo[]>;
   repositories: IRepo[];
 
-  constructor(private _store: Store) {
+  constructor(private _store: Store) {}
+
+  ngOnInit() {
     this.repositories$.subscribe(repos => {
       this.repositories = repos;
     });
-  }
-
-  ngOnInit() {
     if (isNullOrUndefined(this.repositories)) {
       this._store.dispatch(new SearchRepos());
     }

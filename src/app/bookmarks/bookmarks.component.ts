@@ -17,11 +17,10 @@ export class BookmarksComponent implements OnInit {
   repositories: IRepo[];
   userDetails: IUser;
 
-  constructor(private _db: FirestoreService) {
-    this.user$.subscribe(user => this.user = user);
-  }
+  constructor(private _db: FirestoreService) {}
 
   ngOnInit() {
+    this.user$.subscribe(user => this.user = user);
     this._db.getUser(this.user.uid).subscribe(userDetails => {
       this.userDetails = userDetails;
       this.repositories = userDetails.bookmarks;

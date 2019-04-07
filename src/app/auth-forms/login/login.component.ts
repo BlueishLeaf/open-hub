@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Store, Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { EmailLogin, OAuthLogin } from 'src/app/state-management/actions/auth.actions';
 import { LoginProvider } from 'src/app/models/enums/LoginProvider.enum';
 import { Router } from '@angular/router';
-import { AuthState } from 'src/app/state-management/states/auth.state';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
