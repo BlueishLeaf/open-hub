@@ -19,7 +19,6 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        RouterTestingModule,
         NgxsModule.forRoot([AuthState])
       ],
       declarations: [ RegisterComponent ],

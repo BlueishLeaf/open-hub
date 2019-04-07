@@ -20,14 +20,14 @@ export class RegisterComponent implements OnInit {
   password: string;
   confirmPassword: string;
 
-  constructor(private _fb: FormBuilder, private _store: Store, private _router: Router) { }
+  constructor(private _fb: FormBuilder, private _store: Store) { }
 
   ngOnInit() {
-    this.user$.subscribe(user => {
-      if (user) {
-        this._router.navigate(['']);
-      }
-    });
+    // this.user$.subscribe(user => {
+    //   if (user) {
+    //     this._router.navigate(['']);
+    //   }
+    // });
     this.registerForm = this._fb.group({
       fName: ['', [Validators.required, Validators.maxLength(30)]],
       lName: ['', [Validators.required, Validators.maxLength(30)]],

@@ -28,7 +28,6 @@ describe('LoginComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
-        RouterTestingModule,
         NgxsModule.forRoot([AuthState])
       ],
       declarations: [ LoginComponent ],

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofActionDispatched } from '@ngxs/store';
-import { Logout, EmailLogin, OAuthLogin } from './state-management/actions/auth.actions';
+import { Logout, LoginSuccess } from './state-management/actions/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit () {
     this._actions.pipe(ofActionDispatched(Logout)).subscribe(() => this._router.navigate(['login']));
-    this._actions.pipe(ofActionDispatched(EmailLogin)).subscribe(() => this._router.navigate(['bookmarks']));
-    this._actions.pipe(ofActionDispatched(OAuthLogin)).subscribe(() => this._router.navigate(['bookmarks']));
+    this._actions.pipe(ofActionDispatched(LoginSuccess)).subscribe(() => this._router.navigate(['bookmarks']));
   }
 
 }
