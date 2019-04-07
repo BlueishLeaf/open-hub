@@ -5,7 +5,7 @@ import { FirestoreService } from 'src/app/_services/firestore.service';
 import { INote } from 'src/app/_models/_domain/INote';
 import { isNullOrUndefined } from 'util';
 import { Select } from '@ngxs/store';
-import { AuthState } from 'src/app/_store/states/auth.state';
+import { AuthState } from 'src/app/_store/_states/auth.state';
 import { DisplayType } from '../../../_models/_enums/DisplayType.enum';
 import { Observable } from 'rxjs';
 import { ICommit } from 'src/app/_models/_domain/ICommit';

@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { IUser } from '../_models/_domain/IUser';
 import { NgxsModule } from '@ngxs/store';
-import { AuthState, AuthStateModel } from '../_store/states/auth.state';
+import { AuthState, AuthStateModel } from '../_store/_states/auth.state';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { of } from 'rxjs';
 

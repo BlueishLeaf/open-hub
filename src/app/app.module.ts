@@ -25,9 +25,9 @@ import { PopularComponent } from './popular/popular.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { NgxsModule } from '@ngxs/store';
-import { AuthState } from './_store/states/auth.state';
+import { AuthState } from './_store/_states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { RepoState } from './_store/states/repo.state';
+import { RepoState } from './_store/_states/repo.state';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({

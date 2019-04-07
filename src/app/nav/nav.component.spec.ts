@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavComponent } from './nav.component';
 import { Store, NgxsModule } from '@ngxs/store';
-import { AuthStateModel, AuthState } from '../_store/states/auth.state';
+import { AuthStateModel, AuthState } from '../_store/_states/auth.state';
 import { of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

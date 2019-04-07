@@ -6,7 +6,7 @@ import { RepoItemComponent } from './repos/repo-item/repo-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgxsModule, Store } from '@ngxs/store';
-import { RepoState, RepoStateModel } from '../_store/states/repo.state';
+import { RepoState, RepoStateModel } from '../_store/_states/repo.state';
 import { HttpClientModule } from '@angular/common/http';
 import { IRepo } from '../_models/_domain/IRepo';
 import { of } from 'rxjs';

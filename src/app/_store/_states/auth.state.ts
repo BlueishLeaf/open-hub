@@ -1,6 +1,6 @@
 import { State, Action, StateContext, Selector } from '@ngxs/store';
 import { AuthService } from 'src/app/_services/auth.service';
-import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess, LoginFailure } from '../actions/auth.actions';
+import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess, LoginFailure } from '../_actions/auth.actions';
 
 export interface AuthStateModel {
   user?: firebase.UserInfo;

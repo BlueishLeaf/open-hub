@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ISearchQuery } from '../_models/_domain/ISearchQuery';
 import { Store, Select } from '@ngxs/store';
-import { RepoState } from '../_store/states/repo.state';
-import { SearchRepos } from '../_store/actions/repo.actions';
+import { RepoState } from '../_store/_states/repo.state';
+import { SearchRepos } from '../_store/_actions/repo.actions';
 import { Observable } from 'rxjs';
 import { IRepo } from '../_models/_domain/IRepo';
 import { isNullOrUndefined } from 'util';

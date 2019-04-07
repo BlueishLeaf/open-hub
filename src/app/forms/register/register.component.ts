@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store, Select } from '@ngxs/store';
-import { Register } from 'src/app/_store/actions/auth.actions';
-import { AuthState } from 'src/app/_store/states/auth.state';
+import { Register } from 'src/app/_store/_actions/auth.actions';
+import { AuthState } from 'src/app/_store/_states/auth.state';
 import { Observable } from 'rxjs';
 
 @Component({

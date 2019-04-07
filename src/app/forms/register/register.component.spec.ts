@@ -3,7 +3,7 @@ import { RegisterComponent } from './register.component';
 import { of } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxsModule } from '@ngxs/store';
-import { AuthState } from 'src/app/_store/states/auth.state';
+import { AuthState } from 'src/app/_store/_states/auth.state';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 describe('RegisterComponent', () => {

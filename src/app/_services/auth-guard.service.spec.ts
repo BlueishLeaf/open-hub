@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { AuthGuardService } from './auth-guard.service';
 import { Store, NgxsModule } from '@ngxs/store';
-import { AuthStateModel, AuthState } from '../_store/states/auth.state';
+import { AuthStateModel, AuthState } from '../_store/_states/auth.state';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireAuth } from '@angular/fire/auth';
 

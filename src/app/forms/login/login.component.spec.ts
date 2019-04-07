@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store, NgxsModule } from '@ngxs/store';
-import { AuthState } from 'src/app/_store/states/auth.state';
+import { AuthState } from 'src/app/_store/_states/auth.state';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 import { of } from 'rxjs';
