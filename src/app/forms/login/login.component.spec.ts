@@ -1,14 +1,16 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { RegisterComponent } from './register.component';
-import { of } from 'rxjs';
+import { LoginComponent } from './login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgxsModule } from '@ngxs/store';
-import { AuthState } from 'src/app/state-management/states/auth.state';
+import { Store, NgxsModule } from '@ngxs/store';
+import { AuthState } from 'src/app/_store/states/auth.state';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+import { of } from 'rxjs';
+
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let store: Store;
 
   const fireAuthMock = {
     auth: of(null)
@@ -20,16 +22,16 @@ describe('RegisterComponent', () => {
         ReactiveFormsModule,
         NgxsModule.forRoot([AuthState])
       ],
-      declarations: [ RegisterComponent ],
+      declarations: [ LoginComponent ],
       providers: [
-        { provide: AngularFireAuth, useValue: fireAuthMock },
+        { provide: AngularFireAuth, useValue: fireAuthMock }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
+    store = TestBed.get(Store);
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

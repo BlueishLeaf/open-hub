@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../_models/_domain/IUser';
 import { FirestoreService } from '../_services/firestore.service';
 import { Select } from '@ngxs/store';
-import { AuthState } from '../state-management/states/auth.state';
+import { AuthState } from '../_store/states/auth.state';
 import { IRepo } from '../_models/_domain/IRepo';
 import { Observable } from 'rxjs';
 

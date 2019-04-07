@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrgListComponent } from './org-list.component';
 import { NgxsModule, Store } from '@ngxs/store';
-import { RepoState, RepoStateModel } from 'src/app/state-management/states/repo.state';
+import { RepoState, RepoStateModel } from 'src/app/_store/states/repo.state';
 import { IOrg } from 'src/app/_models/_domain/IOrg';
 import { of } from 'rxjs';
 import { OrgItemComponent } from '../org-item/org-item.component';

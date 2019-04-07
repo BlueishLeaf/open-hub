@@ -8,8 +8,8 @@ import { MarkdownModule } from 'ngx-markdown';
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NavComponent } from './nav/nav.component';
-import { LoginComponent } from './auth-forms/login/login.component';
-import { RegisterComponent } from './auth-forms/register/register.component';
+import { LoginComponent } from './forms/login/login.component';
+import { RegisterComponent } from './forms/register/register.component';
 import { BrowseComponent } from './browse/browse.component';
 import { OrgListComponent } from './browse/orgs/org-list/org-list.component';
 import { OrgItemComponent } from './browse/orgs/org-item/org-item.component';
@@ -25,9 +25,9 @@ import { PopularComponent } from './popular/popular.component';
 import { BookmarksComponent } from './bookmarks/bookmarks.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { NgxsModule } from '@ngxs/store';
-import { AuthState } from './state-management/states/auth.state';
+import { AuthState } from './_store/states/auth.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { RepoState } from './state-management/states/repo.state';
+import { RepoState } from './_store/states/repo.state';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({

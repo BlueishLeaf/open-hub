@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { Store } from '@ngxs/store';
-import { AuthState } from '../state-management/states/auth.state';
+import { AuthState } from '../_store/states/auth.state';
 
 @Injectable({
   providedIn: 'root'

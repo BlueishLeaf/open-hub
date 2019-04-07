@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { TimePeriod } from '../_models/_enums/TimePeriod.enum';
 import { IRepo } from '../_models/_domain/IRepo';
 import { Select, Store } from '@ngxs/store';
-import { RepoState } from '../state-management/states/repo.state';
+import { RepoState } from '../_store/states/repo.state';
 import { Observable } from 'rxjs';
-import { GetPopularRepos } from '../state-management/actions/repo.actions';
+import { GetPopularRepos } from '../_store/actions/repo.actions';
 import { isNullOrUndefined } from 'util';
 
 @Component({
