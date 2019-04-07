@@ -40,10 +40,9 @@ describe('NavComponent', () => {
       providers: [
         { provide: AngularFireAuth, useValue: fireAuthMock },
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
     store = TestBed.get(Store);
-    store.reset({AuthState: sampleAuthState});
+    store.reset(sampleAuthState);
   }));
 
   beforeEach(() => {

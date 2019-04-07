@@ -42,4 +42,12 @@ describe('Service: AuthGuard', () => {
   it('should ...', inject([AuthGuardService], (service: AuthGuardService) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should return false if there is no user in the state', inject([AuthGuardService], (service: AuthGuardService) => {
+    
+  }));
+
+  it('should return true if there is a user in the state', inject([AuthGuardService], (service: AuthGuardService) => {
+    
+  }));
 });

@@ -1,6 +1,8 @@
-import { State, Action, StateContext, Selector } from '@ngxs/store';
+import { State, Action, StateContext, Selector, NgxsOnInit } from '@ngxs/store';
 import { AuthService } from 'src/app/_services/auth.service';
-import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess, LoginFailure } from '../_actions/auth.actions';
+import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess, LoginFailure, AutoLoginSuccess, AutoLoginFailure } from '../_actions/auth.actions';
+import { isNullOrUndefined } from 'util';
+import { tap, take, takeLast } from 'rxjs/operators';
 
 export interface AuthStateModel {
   user?: firebase.UserInfo;
@@ -10,11 +12,21 @@ export interface AuthStateModel {
   name: 'auth'
 })
 
-export class AuthState {
+export class AuthState implements NgxsOnInit {
   @Selector()
   static user(state: AuthStateModel) { return state.user; }
 
   constructor(private _auth: AuthService) {}
+
+  async ngxsOnInit({ dispatch }: StateContext<AuthStateModel>) {
+    await this._auth.checkSession().then(userStream => {
+      if (!isNullOrUndefined(userStream)) {
+        userStream.subscribe(user => {
+          !isNullOrUndefined(user) ? dispatch(new AutoLoginSuccess(user)) : dispatch(new AutoLoginFailure());
+        });
+      }
+    });
+  }
 
   @Action(EmailLogin)
   emailLogin(ctx: StateContext<AuthStateModel>, { payload }: EmailLogin) {
@@ -28,7 +40,6 @@ export class AuthState {
 
   @Action(LoginSuccess)
   loginSuccess({ setState }: StateContext<AuthStateModel>, {payload}: LoginSuccess) {
-    // Need to create new smaller user info object, as firebase throws a monster back
     const user: firebase.UserInfo = {
       email: payload.email,
       uid: payload.uid,
@@ -42,6 +53,24 @@ export class AuthState {
 
   @Action(LoginFailure)
   loginFailure({ setState }: StateContext<AuthStateModel>) {
+    setState({});
+  }
+
+  @Action(AutoLoginSuccess)
+  autoLoginSuccess({ setState }: StateContext<AuthStateModel>, {payload}: AutoLoginSuccess) {
+    const user: firebase.UserInfo = {
+      email: payload.email,
+      uid: payload.uid,
+      displayName: payload.displayName,
+      photoURL: payload.photoURL,
+      phoneNumber: payload.phoneNumber,
+      providerId: payload.providerId
+    };
+    setState({user: user});
+  }
+
+  @Action(AutoLoginFailure)
+  autoLoginFailure({ setState }: StateContext<AuthStateModel>) {
     setState({});
   }
 

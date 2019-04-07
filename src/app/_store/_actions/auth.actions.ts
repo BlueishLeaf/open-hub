@@ -12,7 +12,16 @@ export class OAuthLogin {
 
 export class LoginSuccess {
     static readonly type = '[Auth API] Login Successful';
-    constructor(public payload: firebase.UserInfo) {}
+    constructor(public payload: firebase.User) {}
+}
+
+export class AutoLoginSuccess {
+    static readonly type = '[Auth API] AutoLogin Successful';
+    constructor(public payload: firebase.User) {}
+}
+
+export class AutoLoginFailure {
+    static readonly type = '[Auth API] AutoLogin Failed';
 }
 
 export class LoginFailure {

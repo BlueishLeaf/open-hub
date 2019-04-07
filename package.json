@@ -23,6 +23,7 @@
     "@angular/router": "^7.2.4",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@ng-bootstrap/ng-bootstrap": "^4.1.1",
+    "@ngxs/storage-plugin": "^3.4.3",
     "@ngxs/store": "^3.4.3",
     "aws-sdk": "^2.401.0",
     "bootstrap": "^4.3.1",

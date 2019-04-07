@@ -21,6 +21,8 @@ export class AuthService {
     }
   }
 
+  checkSession = async () => await this._afAuth.authState;
+
   emailLogin = async (email: string, password: string): Promise<firebase.auth.UserCredential> => await this._afAuth.auth.signInWithEmailAndPassword(email, password);
 
   register = async (email: string, password: string): Promise<firebase.auth.UserCredential> => await this._afAuth.auth.createUserWithEmailAndPassword(email, password);
