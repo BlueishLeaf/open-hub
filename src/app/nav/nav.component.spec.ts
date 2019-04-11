@@ -1,13 +1,15 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavComponent } from './nav.component';
-import { Store, NgxsModule } from '@ngxs/store';
+import { NgxsModule, Actions, ofActionDispatched} from '@ngxs/store';
 import { AuthStateModel, AuthState } from '../_store/_states/auth.state';
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFireAuth } from '@angular/fire/auth';
+import {Register} from '../_store/_actions/auth.actions';
 
 describe('NavComponent', () => {
+  let actions$: Observable<any>;
   let component: NavComponent;
   let fixture: ComponentFixture<NavComponent>;
 
@@ -24,10 +26,7 @@ describe('NavComponent', () => {
     user: sampleUserInfo
   };
 
-  const fireAuthMock = {
-  };
-
-  let store: Store;
+  const fireAuthMock = {};
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -36,24 +35,27 @@ describe('NavComponent', () => {
         NgbModule,
         NgxsModule.forRoot([AuthState])
       ],
-      declarations: [ NavComponent ],
+      declarations: [NavComponent],
       providers: [
-        { provide: AngularFireAuth, useValue: fireAuthMock },
+        {provide: AngularFireAuth, useValue: fireAuthMock},
       ]
     }).compileComponents();
-    store = TestBed.get(Store);
-    store.reset(sampleAuthState);
   }));
 
   beforeEach(() => {
+    actions$ = TestBed.get(Actions);
     fixture = TestBed.createComponent(NavComponent);
     component = fixture.componentInstance;
-    Object.defineProperty(component, 'user$', { writable: true });
+    Object.defineProperty(component, 'user$', {writable: true});
     component.user$ = of(sampleAuthState.user);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch the logout action to state', () => {
+    actions$.pipe(ofActionDispatched(Register)).subscribe(action => expect(action).toBeTruthy());
   });
 });

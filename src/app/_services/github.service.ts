@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of, forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { IOrg } from '../_models/_domain/IOrg';
 import { IQueryResult } from '../_models/_domain/IQueryResult';

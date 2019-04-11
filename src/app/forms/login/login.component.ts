@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
 
-  constructor(private _fb: FormBuilder, private _store: Store) { }
+  constructor(private _fb: FormBuilder, private _store: Store) {}
 
   ngOnInit() {
     this.loginForm = this._fb.group({
@@ -28,11 +28,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  emailLogin() {
-    this._store.dispatch(new EmailLogin({ email: this.email, password: this.password }));
-  }
+  emailLogin = () => this._store.dispatch(new EmailLogin({ email: this.email, password: this.password }));
 
-  oAuthLogin(provider: LoginProvider) {
-    this._store.dispatch(new OAuthLogin(provider));
-  }
+  oAuthLogin = (provider: LoginProvider) => this._store.dispatch(new OAuthLogin(provider));
 }

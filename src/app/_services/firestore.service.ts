@@ -43,11 +43,6 @@ export class FirestoreService {
     return this._http.post<IRepo>(this.removeBookmarkEndpoint, repo, {params: params, headers: headers});
   }
 
-  getNote(id: string): Observable<INote> {
-    const params = new HttpParams().set('id', id);
-    return this._http.get<INote>(this.noteFuncEndpoint, {params: params});
-  }
-
   deleteNote(id: string) {
     const params = new HttpParams().set('id', id);
     return this._http.delete(this.noteFuncEndpoint, {params: params});

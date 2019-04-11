@@ -1,17 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PopularComponent } from './popular.component';
-import { IRepo } from '../_models/_domain/IRepo';
-import { RepoStateModel, RepoState } from '../_store/_states/repo.state';
-import { of } from 'rxjs';
-import { RepoListComponent } from '../browse/repos/repo-list/repo-list.component';
-import { RepoItemComponent } from '../browse/repos/repo-item/repo-item.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientModule } from '@angular/common/http';
-import { NgxsModule, Store } from '@ngxs/store';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {PopularComponent} from './popular.component';
+import {IRepo} from '../_models/_domain/IRepo';
+import {RepoState, RepoStateModel} from '../_store/_states/repo.state';
+import {Observable, of} from 'rxjs';
+import {RepoListComponent} from '../browse/repos/repo-list/repo-list.component';
+import {RepoItemComponent} from '../browse/repos/repo-item/repo-item.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientModule} from '@angular/common/http';
+import {Actions, NgxsModule, ofActionDispatched, Store} from '@ngxs/store';
+import {GetPopularRepos} from '../_store/_actions/repo.actions';
+import {TimePeriod} from '../_models/_enums/TimePeriod.enum';
 
 describe('PopularComponent', () => {
+  let actions$: Observable<any>;
   let component: PopularComponent;
   let fixture: ComponentFixture<PopularComponent>;
+  let store: Store;
 
   const sampleRepo: IRepo = {
     id: 25114751,
@@ -43,8 +47,6 @@ describe('PopularComponent', () => {
     ]
   };
 
-  let store: Store;
-
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -59,6 +61,7 @@ describe('PopularComponent', () => {
   }));
 
   beforeEach(() => {
+    actions$ = TestBed.get(Actions);
     fixture = TestBed.createComponent(PopularComponent);
     component = fixture.componentInstance;
     Object.defineProperty(component, 'repositories$', { writable: true });
@@ -68,5 +71,10 @@ describe('PopularComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch the GetPopularRepos action to state', () => {
+    component.getPopular(TimePeriod.Month);
+    actions$.pipe(ofActionDispatched(GetPopularRepos)).subscribe(action => expect(action.payload).toBe(TimePeriod.Month));
   });
 });

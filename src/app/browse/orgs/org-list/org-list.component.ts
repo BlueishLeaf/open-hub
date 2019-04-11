@@ -14,13 +14,12 @@ export class OrgListComponent implements OnInit {
   @Select(RepoState.organizations) organizations$: Observable<IOrg[]>;
   organizations: IOrg[];
 
-  constructor(private _store: Store) {
+  constructor(private _store: Store) {}
+
+  ngOnInit() {
     this.organizations$.subscribe(orgs => {
       this.organizations = orgs;
     });
-  }
-
-  ngOnInit() {
     this._store.dispatch(new GetLatestOrgs(this.organizations));
   }
 

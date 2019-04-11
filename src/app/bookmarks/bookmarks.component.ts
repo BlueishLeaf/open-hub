@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IUser } from '../_models/_domain/IUser';
 import { FirestoreService } from '../_services/firestore.service';
 import { Select } from '@ngxs/store';
@@ -26,5 +26,4 @@ export class BookmarksComponent implements OnInit {
       this.repositories = userDetails.bookmarks;
     });
   }
-
 }

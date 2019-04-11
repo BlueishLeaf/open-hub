@@ -4,6 +4,7 @@ import { Store, NgxsModule } from '@ngxs/store';
 import { AuthStateModel, AuthState } from '../_store/_states/auth.state';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { of } from 'rxjs';
 
 const sampleUserInfo: firebase.UserInfo = {
   uid: 'asdf',
@@ -43,11 +44,13 @@ describe('Service: AuthGuard', () => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return false if there is no user in the state', inject([AuthGuardService], (service: AuthGuardService) => {
-    
-  }));
+  // it('should return false if there is no user in the state', inject([AuthGuardService], (service: AuthGuardService) => {
+  //   const spy = spyOn(store, 'select').and.returnValue(of(false));
+  //   expect(service).toBeFalsy();
+  // }));
 
-  it('should return true if there is a user in the state', inject([AuthGuardService], (service: AuthGuardService) => {
-    
-  }));
+  // it('should return true if there is a user in the state', inject([AuthGuardService], (service: AuthGuardService) => {
+  //   const spy = spyOn(store, 'select').and.returnValue(of(true));
+  //   expect(service).toBeTruthy();
+  // }));
 });

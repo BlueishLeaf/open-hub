@@ -11,6 +11,7 @@ import { IRepo } from 'src/app/_models/_domain/IRepo';
 import { ICommit } from 'src/app/_models/_domain/ICommit';
 import { IIssue } from 'src/app/_models/_domain/IIssue';
 import { IUser } from 'src/app/_models/_domain/IUser';
+import {INote} from '../../../_models/_domain/INote';
 
 describe('RepoDetailComponent', () => {
   let component: RepoDetailComponent;
@@ -74,6 +75,15 @@ describe('RepoDetailComponent', () => {
     }
   };
 
+  const sampleNote: INote = {
+    content: 'Test Content',
+    authorEmail: 'johnsmith@openhub.com',
+    authorName: 'John Smith',
+    authorId: 'uiohasdashd',
+    timestamp: new Date(),
+    repository: 'open-hub'
+  };
+
   const sampleIssue: IIssue = {
     id: 1,
     number: 4,
@@ -96,14 +106,14 @@ describe('RepoDetailComponent', () => {
     },
 
     getNotesForRepo(id) {
-
+      return of([sampleNote]);
     },
 
     addNote(note) {
 
     },
 
-    removeNote(id) {
+    deleteNote(id) {
 
     },
 
@@ -124,7 +134,7 @@ describe('RepoDetailComponent', () => {
 
   const activatedRouteMock = {
     snapshot: {
-      params: { 'id': 'asdf' }
+      params: { 'id': '123456789' }
     }
   };
 
@@ -147,6 +157,7 @@ describe('RepoDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RepoDetailComponent);
     component = fixture.componentInstance;
+    component.notes = [];
     Object.defineProperty(component, 'user$', { writable: true });
     component.user$ = of(sampleUserInfo);
     fixture.detectChanges();
@@ -154,5 +165,42 @@ describe('RepoDetailComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get notes for the repo', () => {
+    const spy = spyOn(TestBed.get(FirestoreService), 'getNotesForRepo').and.returnValue(of([sampleNote]));
+    component.getNotes();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should add a note', () => {
+    const spy = spyOn(TestBed.get(FirestoreService), 'addNote').and.returnValue(of([sampleNote]));
+    component.currentNote = sampleNote.content;
+    component.user = sampleUserInfo;
+    component.repository = sampleRepo;
+    component.addNote();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should add the repo to bookmarks', () => {
+    const spy = spyOn(TestBed.get(FirestoreService), 'addBookmark').and.returnValue(of());
+    component.isBookmarked = false;
+    component.user = sampleUserInfo;
+    component.repository = sampleRepo;
+    component.addToBookmarks();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should remove the repo from bookmarks', () => {
+    const spy = spyOn(TestBed.get(FirestoreService), 'removeBookmark').and.returnValue(of());
+    component.removeFromBookmarks();
+    expect(spy).toHaveBeenCalled();
+    expect(component.isBookmarked).toBe(false);
+  });
+
+  it('should remove a note', () => {
+    const spy = spyOn(TestBed.get(FirestoreService), 'deleteNote').and.returnValue(of());
+    component.removeNote(sampleNote);
+    expect(spy).toHaveBeenCalled();
   });
 });

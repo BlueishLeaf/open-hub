@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { EmailLogin, Logout, OAuthLogin, Register, LoginSuccess, LoginFailure, AutoLoginSuccess, AutoLoginFailure } from '../_actions/auth.actions';
 import { isNullOrUndefined } from 'util';
 import { tap, take, takeLast } from 'rxjs/operators';
+import * as firebase from 'firebase';
 
 export interface AuthStateModel {
   user?: firebase.UserInfo;

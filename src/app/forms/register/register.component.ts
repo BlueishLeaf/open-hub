@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store, Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { Register } from 'src/app/_store/_actions/auth.actions';
-import { AuthState } from 'src/app/_store/_states/auth.state';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +9,6 @@ import { Observable } from 'rxjs';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  @Select(AuthState.user) user$: Observable<firebase.UserInfo>;
   registerForm: FormGroup;
   fName: string;
   lName: string;

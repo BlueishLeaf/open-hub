@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Store, NgxsModule } from '@ngxs/store';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {Actions, NgxsModule, ofActionDispatched} from '@ngxs/store';
 import { AuthState } from 'src/app/_store/_states/auth.state';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {EmailLogin} from '../../_store/_actions/auth.actions';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let store: Store;
+  let actions$: Observable<any>;
 
   const fireAuthMock = {
-    auth: of(null)
+    emailLogin: of(null)
   };
 
   beforeEach(async(() => {
@@ -27,10 +28,10 @@ describe('LoginComponent', () => {
         { provide: AngularFireAuth, useValue: fireAuthMock }
       ]
     }).compileComponents();
-    store = TestBed.get(Store);
   }));
 
   beforeEach(() => {
+    actions$ = TestBed.get(Actions);
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -38,5 +39,14 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch the login action to state with a payload containing an email and password', () => {
+    component.loginForm = new FormGroup({
+      email: new FormControl('johnsmith@openhub.com'),
+      password: new FormControl('Hunter2')
+    });
+    component.emailLogin();
+    actions$.pipe(ofActionDispatched(EmailLogin)).subscribe( action => expect(action.payload).toBe({ email: 'johnsmith@openhub.com', password: 'Hunter2' }));
   });
 });

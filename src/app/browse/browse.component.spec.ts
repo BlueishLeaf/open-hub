@@ -5,13 +5,16 @@ import { RepoListComponent } from './repos/repo-list/repo-list.component';
 import { RepoItemComponent } from './repos/repo-item/repo-item.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { NgxsModule, Store } from '@ngxs/store';
+import {Actions, NgxsModule, ofActionDispatched, Store} from '@ngxs/store';
 import { RepoState, RepoStateModel } from '../_store/_states/repo.state';
 import { HttpClientModule } from '@angular/common/http';
 import { IRepo } from '../_models/_domain/IRepo';
-import { of } from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {Register} from '../_store/_actions/auth.actions';
+import {SearchRepos} from '../_store/_actions/repo.actions';
 
 describe('BrowseComponent', () => {
+  let actions$: Observable<any>;
   let component: BrowseComponent;
   let fixture: ComponentFixture<BrowseComponent>;
 
@@ -69,6 +72,7 @@ describe('BrowseComponent', () => {
   }));
 
   beforeEach(() => {
+    actions$ = TestBed.get(Actions);
     fixture = TestBed.createComponent(BrowseComponent);
     component = fixture.componentInstance;
     Object.defineProperty(component, 'repositories$', { writable: true });
@@ -78,5 +82,18 @@ describe('BrowseComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch a SearchRepos action with a payload containing the query', () => {
+    component.searchTriggered({
+      name: 'hello-world',
+      language: 'C#',
+      license: 'unlicense',
+      minStars: 20,
+      maxStars: 100,
+      minFirstIssues: 0,
+      maxFirstIssues: 0
+    });
+    actions$.pipe(ofActionDispatched(SearchRepos)).subscribe(action => expect(action.payload).toBe('q=hello-world in:name language:C# license:unlicense stars:20..100 is:public'));
   });
 });
